@@ -1,0 +1,1 @@
+{"version":3,"file":"remove-videos-from-queue-handler.js","sourceRoot":"","sources":["remove-videos-from-queue-handler.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,yBAAyB,CAAC;AAErD,MAAM,CAAC,KAAK,UAAU,4BAA4B,CAAC,QAAkB;IACnE,UAAU,CAAC,YAAY,CAAC,QAAQ,CAAC,CAAC;IAElC,OAAO,OAAO,CAAC,OAAO,EAAE,CAAC;AAC3B,CAAC"}

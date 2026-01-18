@@ -1,0 +1,1 @@
+{"version":3,"file":"get-sequence-output-file-path.js","sourceRoot":"","sources":["get-sequence-output-file-path.ts"],"names":[],"mappings":"AAAA,OAAO,IAAI,MAAM,WAAW,CAAC;AAI7B,MAAM,UAAU,yBAAyB,CACvC,gBAAwB,EACxB,QAAkB,EAClB,cAA8B;IAE9B,OAAO,IAAI,CAAC,IAAI,CACd,gBAAgB,EAChB,YAAY,QAAQ,CAAC,MAAM,SAAS,QAAQ,CAAC,SAAS,OAAO,QAAQ,CAAC,OAAO,IAAI,cAAc,EAAE,CAClG,CAAC;AACJ,CAAC"}

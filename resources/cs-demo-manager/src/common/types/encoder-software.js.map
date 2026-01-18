@@ -1,0 +1,1 @@
+{"version":3,"file":"encoder-software.js","sourceRoot":"","sources":["encoder-software.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,MAAM,eAAe,GAAG;IAC7B,UAAU,EAAE,YAAY;IACxB,MAAM,EAAE,QAAQ;CACR,CAAC;AAIX,MAAM,UAAU,sBAAsB,CAAC,KAAa;IAClD,OAAO,MAAM,CAAC,MAAM,CAAC,eAAe,CAAC,CAAC,QAAQ,CAAC,KAAwB,CAAC,CAAC;AAC3E,CAAC"}

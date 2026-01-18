@@ -1,0 +1,1 @@
+{"version":3,"file":"kill-virtual-dub-process.js","sourceRoot":"","sources":["kill-virtual-dub-process.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,oBAAoB,EAAE,MAAM,sCAAsC,CAAC;AAE5E,MAAM,CAAC,KAAK,UAAU,qBAAqB;IACzC,MAAM,WAAW,GAAG,OAAO,CAAC,IAAI,KAAK,KAAK,CAAC,CAAC,CAAC,cAAc,CAAC,CAAC,CAAC,gBAAgB,CAAC;IAE/E,MAAM,oBAAoB,CAAC,CAAC,WAAW,CAAC,CAAC,CAAC;AAC5C,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"fetch-comments.js","sourceRoot":"","sources":["fetch-comments.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,EAAE,EAAE,MAAM,6BAA6B,CAAC;AAGjD,MAAM,CAAC,KAAK,UAAU,aAAa;IACjC,MAAM,IAAI,GAAiB,MAAM,EAAE,CAAC,UAAU,CAAC,UAAU,CAAC,CAAC,SAAS,EAAE,CAAC,OAAO,EAAE,CAAC;IAEjF,OAAO,IAAI,CAAC;AACd,CAAC"}

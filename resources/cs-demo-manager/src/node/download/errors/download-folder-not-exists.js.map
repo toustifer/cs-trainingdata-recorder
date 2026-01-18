@@ -1,0 +1,1 @@
+{"version":3,"file":"download-folder-not-exists.js","sourceRoot":"","sources":["download-folder-not-exists.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,6BAA6B,CAAC;AACxD,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AAEnD,MAAM,OAAO,uBAAwB,SAAQ,SAAS;IACpD;QACE,KAAK,CAAC,SAAS,CAAC,uBAAuB,CAAC,CAAC;QACzC,IAAI,CAAC,OAAO,GAAG,+BAA+B,CAAC;IACjD,CAAC;CACF"}

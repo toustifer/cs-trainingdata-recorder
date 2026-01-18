@@ -1,0 +1,1 @@
+{"version":3,"file":"multiple-player-export-sheet.js","sourceRoot":"","sources":["multiple-player-export-sheet.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,KAAK,EAAE,MAAM,UAAU,CAAC;AAEjC,MAAM,OAAgB,yBAAmC,SAAQ,KAAc;IACnE,QAAQ,CAAW;IAE7B,YAAmB,QAAkB,EAAE,QAAkB;QACvD,KAAK,CAAC,QAAQ,CAAC,CAAC;QAChB,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;IAC3B,CAAC;CACF"}

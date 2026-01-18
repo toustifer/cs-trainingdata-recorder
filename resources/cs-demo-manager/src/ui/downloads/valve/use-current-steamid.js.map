@@ -1,0 +1,1 @@
+{"version":3,"file":"use-current-steamid.js","sourceRoot":"","sources":["use-current-steamid.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAE,MAAM,mBAAmB,CAAC;AAElD,MAAM,UAAU,iBAAiB;IAC/B,MAAM,KAAK,GAAG,aAAa,EAAE,CAAC;IAE9B,IAAI,KAAK,CAAC,cAAc,KAAK,SAAS,EAAE,CAAC;QACvC,MAAM,IAAI,KAAK,CAAC,sDAAsD,CAAC,CAAC;IAC1E,CAAC;IAED,OAAO,KAAK,CAAC,cAAc,CAAC;AAC9B,CAAC"}

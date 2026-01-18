@@ -1,0 +1,34 @@
+import { JSONActionsFileGenerator } from './json-actions-file-generator';
+export async function generatePlayerRoundsJsonFile({ tickrate, demoPath, game, rounds, players, playerId, beforeDelaySeconds, afterDelaySeconds, playerVoicesEnabled, }) {
+    const json = new JSONActionsFileGenerator(demoPath, game);
+    if (playerVoicesEnabled) {
+        json.enablePlayerVoices();
+    }
+    else {
+        json.disablePlayerVoices();
+    }
+    json.generateVoiceAliases(players);
+    const beforeRoundTicks = beforeDelaySeconds > 0 ? beforeDelaySeconds * tickrate : 128;
+    const afterRoundTicks = afterDelaySeconds > 0 ? afterDelaySeconds * tickrate : tickrate;
+    let currentTick = 0;
+    for (let index = 0; index < rounds.length; index++) {
+        const round = rounds[index];
+        const startTick = Math.max(round.freezeTimeEndTick - beforeRoundTicks, 0);
+        if (currentTick + afterRoundTicks < startTick) {
+            json.addSkipAhead(currentTick, startTick);
+        }
+        json.addSpecPlayer(startTick, playerId);
+        if (round.deathTick !== null) {
+            currentTick = round.deathTick + afterRoundTicks;
+        }
+        else {
+            currentTick = round.tickEnd + afterRoundTicks;
+        }
+        if (index === rounds.length - 1) {
+            json.addStopPlayback(currentTick + afterRoundTicks);
+        }
+    }
+    await json.write();
+    return json;
+}
+//# sourceMappingURL=generate-player-rounds-json-file.js.map

@@ -1,0 +1,32 @@
+import React from 'react';
+import { Trans } from '@lingui/react/macro';
+import { Content } from 'csdm/ui/components/content';
+import { UnsupportedMap } from 'csdm/ui/components/unsupported-map';
+import { Message } from 'csdm/ui/components/message';
+import { useCurrentMatchMap } from 'csdm/ui/match/use-current-match-map';
+import { useGetMapRadarSrc } from 'csdm/ui/maps/use-get-map-radar-src';
+import { useCurrentMatch } from 'csdm/ui/match/use-current-match';
+import { OpeningDuelsMap } from './opening-duels-map';
+import { RadarLevel } from 'csdm/ui/maps/radar-level';
+export function OpeningDuelsMapLoader() {
+    const match = useCurrentMatch();
+    const map = useCurrentMatchMap();
+    const getMapRadarFileSrc = useGetMapRadarSrc();
+    const radarFileSrc = getMapRadarFileSrc(map?.name, match.game, RadarLevel.Upper);
+    if (!map || !radarFileSrc) {
+        return React.createElement(UnsupportedMap, null);
+    }
+    const openingKills = [];
+    for (const kill of match.kills) {
+        if (openingKills.some((k) => k.roundNumber === kill.roundNumber)) {
+            continue;
+        }
+        openingKills.push(kill);
+    }
+    if (openingKills.length === 0) {
+        return React.createElement(Message, { message: React.createElement(Trans, null, "No kills found.") });
+    }
+    return (React.createElement(Content, null,
+        React.createElement(OpeningDuelsMap, { map: map, kills: openingKills })));
+}
+//# sourceMappingURL=opening-duels-map-loader.js.map

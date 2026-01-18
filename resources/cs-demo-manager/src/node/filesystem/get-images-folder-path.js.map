@@ -1,0 +1,1 @@
+{"version":3,"file":"get-images-folder-path.js","sourceRoot":"","sources":["get-images-folder-path.ts"],"names":[],"mappings":"AAAA,OAAO,IAAI,MAAM,WAAW,CAAC;AAC7B,OAAO,EAAE,mBAAmB,EAAE,MAAM,0BAA0B,CAAC;AAE/D,MAAM,UAAU,mBAAmB;IACjC,OAAO,IAAI,CAAC,IAAI,CAAC,mBAAmB,EAAE,EAAE,QAAQ,CAAC,CAAC;AACpD,CAAC"}

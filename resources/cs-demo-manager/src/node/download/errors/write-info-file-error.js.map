@@ -1,0 +1,1 @@
+{"version":3,"file":"write-info-file-error.js","sourceRoot":"","sources":["write-info-file-error.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,6BAA6B,CAAC;AACxD,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AAEnD,MAAM,OAAO,sBAAuB,SAAQ,SAAS;IACnD;QACE,KAAK,CAAC,SAAS,CAAC,sBAAsB,CAAC,CAAC;QACxC,IAAI,CAAC,OAAO,GAAG,qCAAqC,CAAC;IACvD,CAAC;CACF"}

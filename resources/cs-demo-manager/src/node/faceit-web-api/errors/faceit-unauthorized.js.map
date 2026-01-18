@@ -1,0 +1,1 @@
+{"version":3,"file":"faceit-unauthorized.js","sourceRoot":"","sources":["faceit-unauthorized.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AACnD,OAAO,EAAE,cAAc,EAAE,MAAM,oBAAoB,CAAC;AAEpD,MAAM,OAAO,kBAAmB,SAAQ,cAAc;IACpD;QACE,KAAK,EAAE,CAAC;QACR,IAAI,CAAC,IAAI,GAAG,SAAS,CAAC,qBAAqB,CAAC;QAC5C,IAAI,CAAC,OAAO,GAAG,2BAA2B,CAAC;IAC7C,CAAC;CACF"}

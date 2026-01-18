@@ -1,0 +1,143 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Generate player's rounds JSON file > CS2 1`] = `
+"[
+  {
+    "actions": [
+      {
+        "cmd": "tv_listen_voice_indices -1",
+        "tick": 64
+      },
+      {
+        "cmd": "tv_listen_voice_indices_h -1",
+        "tick": 64
+      },
+      {
+        "cmd": "alias \\"voice_all\\" \\"tv_listen_voice_indices -1; tv_listen_voice_indices_h -1; echo Listening to all players\\"",
+        "tick": 64
+      },
+      {
+        "cmd": "echo \\"[CSDM] Type voice_all to listen to all players\\"",
+        "tick": 64
+      },
+      {
+        "cmd": "demo_gototick 872",
+        "tick": 64
+      },
+      {
+        "cmd": "spec_mode 1",
+        "tick": 872
+      },
+      {
+        "cmd": "spec_player 4",
+        "tick": 876
+      },
+      {
+        "cmd": "demo_gototick 10752",
+        "tick": 5864
+      },
+      {
+        "cmd": "spec_mode 1",
+        "tick": 10752
+      },
+      {
+        "cmd": "spec_player 4",
+        "tick": 10756
+      },
+      {
+        "cmd": "demo_gototick 16152",
+        "tick": 13184
+      },
+      {
+        "cmd": "spec_mode 1",
+        "tick": 16152
+      },
+      {
+        "cmd": "spec_player 4",
+        "tick": 16156
+      },
+      {
+        "cmd": "demo_gototick 21352",
+        "tick": 18984
+      },
+      {
+        "cmd": "spec_mode 1",
+        "tick": 21352
+      },
+      {
+        "cmd": "spec_player 4",
+        "tick": 21356
+      },
+      {
+        "cmd": "disconnect",
+        "tick": 25448
+      }
+    ]
+  }
+]"
+`;
+
+exports[`Generate player's rounds JSON file > CSGO 1`] = `
+"[
+  {
+    "actions": [
+      {
+        "cmd": "voice_enable 1",
+        "tick": 64
+      },
+      {
+        "cmd": "demo_gototick 872",
+        "tick": 64
+      },
+      {
+        "cmd": "spec_lock_to_accountid fakeKillerSteamId",
+        "tick": 872
+      },
+      {
+        "cmd": "spec_player_by_accountid fakeKillerSteamId",
+        "tick": 872
+      },
+      {
+        "cmd": "demo_gototick 10752",
+        "tick": 5864
+      },
+      {
+        "cmd": "spec_lock_to_accountid fakeKillerSteamId",
+        "tick": 10752
+      },
+      {
+        "cmd": "spec_player_by_accountid fakeKillerSteamId",
+        "tick": 10752
+      },
+      {
+        "cmd": "demo_gototick 16152",
+        "tick": 13184
+      },
+      {
+        "cmd": "spec_lock_to_accountid fakeKillerSteamId",
+        "tick": 16152
+      },
+      {
+        "cmd": "spec_player_by_accountid fakeKillerSteamId",
+        "tick": 16152
+      },
+      {
+        "cmd": "demo_gototick 21352",
+        "tick": 18984
+      },
+      {
+        "cmd": "spec_lock_to_accountid fakeKillerSteamId",
+        "tick": 21352
+      },
+      {
+        "cmd": "spec_player_by_accountid fakeKillerSteamId",
+        "tick": 21352
+      },
+      {
+        "cmd": "disconnect",
+        "tick": 25448
+      }
+    ]
+  }
+]"
+`;

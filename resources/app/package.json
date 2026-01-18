@@ -1,0 +1,12 @@
+{
+  "name": "cs2-data-reaper",
+  "version": "1.0.0",
+  "description": "CS2 Training Data Automated Collection Tool",
+  "author": "CS2-AI-Team",
+  "main": "main.js",
+  "dependencies": {
+    "fast-glob": "^3.3.2",
+    "fs-extra": "11.2.0",
+    "pg": "8.11.3"
+  }
+}

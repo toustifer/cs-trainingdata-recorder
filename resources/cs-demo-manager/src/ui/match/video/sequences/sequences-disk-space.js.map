@@ -1,0 +1,1 @@
+{"version":3,"file":"sequences-disk-space.js","sourceRoot":"","sources":["sequences-disk-space.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAC;AAC1B,OAAO,EAAE,6BAA6B,EAAE,MAAM,qCAAqC,CAAC;AACpF,OAAO,EAAE,iBAAiB,EAAE,MAAM,uBAAuB,CAAC;AAE1D,MAAM,UAAU,kBAAkB;IAChC,MAAM,KAAK,GAAG,6BAA6B,EAAE,CAAC;IAE9C,OAAO,oBAAC,iBAAiB,IAAC,KAAK,EAAE,KAAK,GAAI,CAAC;AAC7C,CAAC"}

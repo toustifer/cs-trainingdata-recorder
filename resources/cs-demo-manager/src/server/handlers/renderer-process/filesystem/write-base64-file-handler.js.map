@@ -1,0 +1,1 @@
+{"version":3,"file":"write-base64-file-handler.js","sourceRoot":"","sources":["write-base64-file-handler.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,eAAe,EAAE,MAAM,wCAAwC,CAAC;AAOzE,MAAM,CAAC,KAAK,UAAU,sBAAsB,CAAC,EAAE,QAAQ,EAAE,IAAI,EAA0B;IACrF,MAAM,eAAe,CAAC,QAAQ,EAAE,IAAI,CAAC,CAAC;AACxC,CAAC"}

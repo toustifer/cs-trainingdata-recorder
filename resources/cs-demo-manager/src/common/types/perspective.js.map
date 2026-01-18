@@ -1,0 +1,1 @@
+{"version":3,"file":"perspective.js","sourceRoot":"","sources":["perspective.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,MAAM,WAAW,GAAG;IACzB,MAAM,EAAE,QAAQ;IAChB,KAAK,EAAE,OAAO;CACN,CAAC;AAIX,MAAM,UAAU,kBAAkB,CAAC,KAAa;IAC9C,OAAO,MAAM,CAAC,MAAM,CAAC,WAAW,CAAC,CAAC,QAAQ,CAAC,KAAoB,CAAC,CAAC;AACnE,CAAC"}

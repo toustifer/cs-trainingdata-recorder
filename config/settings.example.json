@@ -1,0 +1,11 @@
+{
+  "demoDir": "F:\\your\\path\\to\\demo\\files",
+  "outputDir": "F:\\your\\path\\to\\output",
+  "playerSteamId": "",
+  "selectedFile": null,
+  "rounds": "",
+  "dbUser": "postgres",
+  "dbPass": "your_database_password",
+  "speed": "1",
+  "framesPerWindow": "10"
+}

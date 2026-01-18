@@ -1,0 +1,39 @@
+import { useGetGrenadeImage } from './use-get-grenade-image';
+export function useBuildGrenadeDrawings() {
+    const getGrenadeImage = useGetGrenadeImage();
+    return async (grenadesThrow, focusedId, interactiveCanvas) => {
+        const { zoomedToRadarX, zoomedToRadarY } = interactiveCanvas;
+        const drawings = [];
+        let currentPath = new Path2D();
+        for (const grenadeThrow of grenadesThrow) {
+            if (focusedId !== undefined && focusedId !== grenadeThrow.id) {
+                continue;
+            }
+            for (const [index, position] of grenadeThrow.positions.entries()) {
+                const nextPosition = index < grenadeThrow.positions.length ? grenadeThrow.positions[index + 1] : undefined;
+                const startX = zoomedToRadarX(position.x, position.z);
+                const startY = zoomedToRadarY(position.y, position.z);
+                if (nextPosition) {
+                    const endX = zoomedToRadarX(nextPosition.x, nextPosition.z);
+                    const endY = zoomedToRadarY(nextPosition.y, nextPosition.z);
+                    currentPath.moveTo(startX, startY);
+                    currentPath.lineTo(endX, endY);
+                }
+                else {
+                    const grenadeImage = await getGrenadeImage(grenadeThrow.grenadeName);
+                    drawings.push({
+                        id: grenadeThrow.id,
+                        path: currentPath,
+                        image: grenadeImage,
+                        imageX: startX,
+                        imageY: startY,
+                    });
+                    currentPath = new Path2D();
+                }
+            }
+        }
+        currentPath.closePath();
+        return drawings;
+    };
+}
+//# sourceMappingURL=build-grenade-drawings.js.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"download-link-expired.js","sourceRoot":"","sources":["download-link-expired.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,6BAA6B,CAAC;AACxD,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AAEnD,MAAM,OAAO,mBAAoB,SAAQ,SAAS;IAChD;QACE,KAAK,CAAC,SAAS,CAAC,eAAe,CAAC,CAAC;QACjC,IAAI,CAAC,OAAO,GAAG,uBAAuB,CAAC;IACzC,CAAC;CACF"}

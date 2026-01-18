@@ -1,0 +1,20 @@
+import { sql } from 'kysely';
+import { CompetitiveRank, DemoSource } from 'csdm/common/types/counter-strike';
+import { db } from 'csdm/node/database/database';
+export async function fetchPlayerLastCompetitiveRank(steamId, filters) {
+    let query = db
+        .selectFrom('players')
+        .select(['rank'])
+        .leftJoin('matches', 'matches.checksum', 'players.match_checksum')
+        .where('steam_id', '=', steamId)
+        .where('source', '=', DemoSource.Valve)
+        .where('players.rank', '>', CompetitiveRank.Unknown)
+        .where('players.rank', '<=', CompetitiveRank.GlobalElite)
+        .orderBy('matches.date', 'desc');
+    if (filters && filters.startDate && filters.endDate) {
+        query = query.where(sql `matches.date between ${filters.startDate} and ${filters.endDate}`);
+    }
+    const row = await query.executeTakeFirst();
+    return row?.rank ?? CompetitiveRank.Unknown;
+}
+//# sourceMappingURL=fetch-player-last-competitive-rank.js.map

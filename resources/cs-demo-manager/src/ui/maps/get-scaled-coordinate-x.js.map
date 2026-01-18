@@ -1,0 +1,1 @@
+{"version":3,"file":"get-scaled-coordinate-x.js","sourceRoot":"","sources":["get-scaled-coordinate-x.ts"],"names":[],"mappings":"AAEA,MAAM,UAAU,oBAAoB,CAAC,GAAQ,EAAE,SAAiB,EAAE,SAAiB;IACjF,MAAM,qBAAqB,GAAG,CAAC,SAAS,GAAG,GAAG,CAAC,IAAI,CAAC,GAAG,GAAG,CAAC,KAAK,CAAC;IACjE,MAAM,OAAO,GAAG,CAAC,qBAAqB,GAAG,SAAS,CAAC,GAAG,GAAG,CAAC,SAAS,CAAC;IACpE,OAAO,OAAO,CAAC;AACjB,CAAC"}

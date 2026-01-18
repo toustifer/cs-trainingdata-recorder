@@ -1,0 +1,5 @@
+import React from 'react';
+export function Switch({ id, isChecked, onChange }) {
+    return (React.createElement("input", { type: "checkbox", id: id, onChange: (event) => onChange(event.target.checked), checked: isChecked, className: "relative h-20 w-40 cursor-pointer appearance-none rounded-full bg-gray-300 before:inline-block before:size-12 before:translate-x-4 before:rounded-full before:bg-gray-100 before:duration-300 checked:bg-blue-700 checked:before:translate-x-24 checked:before:bg-gray-50" }));
+}
+//# sourceMappingURL=switch.js.map

@@ -1,0 +1,11 @@
+import { renameDemo } from 'csdm/node/database/demos/rename-demo';
+import { handleError } from '../../handle-error';
+export async function renameDemoHandler({ checksum, name }) {
+    try {
+        await renameDemo(checksum, name);
+    }
+    catch (error) {
+        handleError(error, `Error while renaming demo with checksum ${checksum} to ${name}`);
+    }
+}
+//# sourceMappingURL=rename-demo-handler.js.map

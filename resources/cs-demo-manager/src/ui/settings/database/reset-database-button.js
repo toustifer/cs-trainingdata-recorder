@@ -1,0 +1,45 @@
+import React, { useState } from 'react';
+import { Trans } from '@lingui/react/macro';
+import { RendererClientMessageName } from 'csdm/server/renderer-client-message-name';
+import { ConfirmDialog } from 'csdm/ui/dialogs/confirm-dialog';
+import { useWebSocketClient } from 'csdm/ui/hooks/use-web-socket-client';
+import { Button, ButtonVariant } from 'csdm/ui/components/buttons/button';
+import { useDialog } from 'csdm/ui/components/dialogs/use-dialog';
+import { ErrorMessage } from 'csdm/ui/components/error-message';
+function ResetDatabaseDialog() {
+    const client = useWebSocketClient();
+    const [error, setError] = useState(undefined);
+    const [isBusy, setIsBusy] = useState(false);
+    const onConfirmClick = async () => {
+        try {
+            setIsBusy(true);
+            await client.send({
+                name: RendererClientMessageName.ResetDatabase,
+            });
+            window.csdm.reloadWindow();
+        }
+        catch (error) {
+            if (typeof error === 'string') {
+                setError(error);
+            }
+            else {
+                setError(JSON.stringify(error));
+            }
+        }
+        setIsBusy(false);
+    };
+    return (React.createElement(ConfirmDialog, { title: React.createElement(Trans, { context: "Dialog title" }, "Reset database"), onConfirm: onConfirmClick, closeOnConfirm: false, isBusy: isBusy, confirmButtonVariant: ButtonVariant.Danger },
+        React.createElement("p", null,
+            React.createElement(Trans, null, "It will delete all data in the database!")),
+        error !== undefined && (React.createElement("div", { className: "mt-8" },
+            React.createElement(ErrorMessage, { message: error })))));
+}
+export function ResetDatabaseButton({ variant }) {
+    const { showDialog } = useDialog();
+    const onClick = () => {
+        showDialog(React.createElement(ResetDatabaseDialog, null));
+    };
+    return (React.createElement(Button, { variant: variant, onClick: onClick },
+        React.createElement(Trans, { context: "Button" }, "Reset database")));
+}
+//# sourceMappingURL=reset-database-button.js.map

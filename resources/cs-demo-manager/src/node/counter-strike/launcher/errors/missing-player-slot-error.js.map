@@ -1,0 +1,1 @@
+{"version":3,"file":"missing-player-slot-error.js","sourceRoot":"","sources":["missing-player-slot-error.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,6BAA6B,CAAC;AACxD,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AAEnD,MAAM,OAAO,sBAAuB,SAAQ,SAAS;IACnD;QACE,KAAK,CAAC,SAAS,CAAC,iBAAiB,CAAC,CAAC;QACnC,IAAI,CAAC,OAAO,GAAG,qBAAqB,CAAC;IACvC,CAAC;CACF"}

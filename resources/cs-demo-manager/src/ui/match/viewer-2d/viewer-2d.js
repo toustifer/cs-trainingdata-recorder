@@ -1,0 +1,178 @@
+import React, { useRef, useEffect, useLayoutEffect, useState } from 'react';
+import clsx from 'clsx';
+import { PlaybackBar } from 'csdm/ui/match/viewer-2d/playback-bar/playback-bar';
+import { TeamPanel } from 'csdm/ui/match/viewer-2d/teams-panel/team-panel';
+import { Timer } from './timer';
+import { KillsFeed } from './kills-feed';
+import { RoundsBar } from './rounds-bar/rounds-bar';
+import { useDrawPlayers } from './drawing/use-draw-players';
+import { useDrawHostages } from './drawing/use-draw-hostages';
+import { useDrawShots } from './drawing/use-draw-shots';
+import { useDrawInfernos } from './drawing/use-draw-infernos';
+import { useDrawGrenades } from './drawing/use-draw-grenades';
+import { useViewerContext } from './use-viewer-context';
+import { useCurrentMatch } from '../use-current-match';
+import { useInteractiveMapCanvas } from '../../hooks/use-interactive-map-canvas';
+import { useDrawMapRadar } from './drawing/use-draw-map-radar';
+import { FullscreenProvider } from './fullscreen-provider';
+import { useDrawDeaths } from './drawing/use-draw-deaths';
+import { useDrawBombs } from './drawing/use-draw-bombs';
+import { useDrawChickens } from './drawing/use-draw-chickens';
+import { useDrawableCanvas } from './drawing/use-drawable-canvas';
+import { isCtrlOrCmdEvent } from 'csdm/ui/keyboard/keyboard';
+export function Viewer2D() {
+    const match = useCurrentMatch();
+    const [canvas, setCanvas] = useState(null);
+    const [drawingCanvas, setDrawingCanvas] = useState(null);
+    const lastRenderTime = useRef(0);
+    const animationIdRef = useRef(0);
+    const isHoldingSpace = useRef(false);
+    const { drawPlayers } = useDrawPlayers();
+    const { drawHostages } = useDrawHostages();
+    const { drawShots } = useDrawShots();
+    const { drawChickens } = useDrawChickens();
+    const { drawInfernos } = useDrawInfernos();
+    const { drawGrenades } = useDrawGrenades();
+    const { drawMapRadar } = useDrawMapRadar();
+    const { drawDeaths } = useDrawDeaths();
+    const { drawBombs } = useDrawBombs();
+    const { toggleMode, speed, isPlaying, playPause, pause, currentTick, tickrate, setCurrentTick, round, changeRound, map, shouldDrawBombs, lowerRadarOffsetX, lowerRadarOffsetY, drawingTool, drawingSize, drawingColor, isDrawingMode, } = useViewerContext();
+    const interactiveCanvas = useInteractiveMapCanvas(canvas, map, lowerRadarOffsetX, lowerRadarOffsetY);
+    const drawing = useDrawableCanvas({
+        canvas: drawingCanvas,
+        interactiveCanvas,
+        isDrawingMode,
+        tool: {
+            type: drawingTool,
+            color: drawingColor,
+            size: drawingSize,
+        },
+    });
+    const { undo, redo, clear, drawStrokes } = drawing;
+    const { canvasSize, setWrapper } = interactiveCanvas;
+    useLayoutEffect(() => {
+        const animate = () => {
+            animationIdRef.current = window.requestAnimationFrame(animate);
+            const context = canvas?.getContext('2d');
+            if (!context) {
+                return;
+            }
+            context.clearRect(0, 0, canvasSize.width, canvasSize.height);
+            drawMapRadar(context, interactiveCanvas);
+            drawPlayers(context, interactiveCanvas);
+            drawHostages(context, interactiveCanvas);
+            drawShots(context, interactiveCanvas);
+            drawInfernos(context, interactiveCanvas);
+            drawGrenades(context, interactiveCanvas);
+            drawDeaths(context, interactiveCanvas);
+            if (shouldDrawBombs) {
+                drawBombs(context, interactiveCanvas);
+            }
+            drawChickens(context, interactiveCanvas);
+            const drawingContext = drawingCanvas?.getContext('2d');
+            if (drawingContext) {
+                drawStrokes(drawingContext);
+            }
+            if (!isPlaying) {
+                lastRenderTime.current = performance.now();
+                return;
+            }
+            const now = performance.now();
+            const elapsed = now - lastRenderTime.current;
+            const ticksToAdvance = Math.floor((elapsed / 1000) * tickrate * speed);
+            if (ticksToAdvance > 0) {
+                setCurrentTick(currentTick + ticksToAdvance);
+                lastRenderTime.current = performance.now() - (elapsed % (1000 / (tickrate * speed)));
+            }
+            if (currentTick >= round.endOfficiallyTick) {
+                if (round.number < match.rounds.length) {
+                    changeRound(round.number + 1);
+                }
+                else {
+                    pause();
+                }
+            }
+        };
+        animationIdRef.current = window.requestAnimationFrame(animate);
+        return () => {
+            window.cancelAnimationFrame(animationIdRef.current);
+        };
+    });
+    useEffect(() => {
+        const onKeyDown = (event) => {
+            switch (event.key.toLowerCase()) {
+                case ' ':
+                    event.preventDefault();
+                    if (isDrawingMode) {
+                        toggleMode();
+                        isHoldingSpace.current = true;
+                    }
+                    else if (!event.repeat) {
+                        playPause();
+                    }
+                    break;
+                case 'escape':
+                    if (isDrawingMode) {
+                        event.preventDefault();
+                        toggleMode();
+                    }
+                    break;
+                case 'd':
+                    event.preventDefault();
+                    toggleMode();
+                    break;
+                case 'z':
+                    if (isCtrlOrCmdEvent(event)) {
+                        event.preventDefault();
+                        if (event.shiftKey) {
+                            redo();
+                        }
+                        else {
+                            undo();
+                        }
+                    }
+                    break;
+                case 'x':
+                    if (isCtrlOrCmdEvent(event)) {
+                        event.preventDefault();
+                        clear();
+                    }
+                    break;
+                default:
+            }
+        };
+        const onKeyUp = (event) => {
+            switch (event.key) {
+                case ' ':
+                    if (isHoldingSpace.current) {
+                        event.preventDefault();
+                        toggleMode();
+                        isHoldingSpace.current = false;
+                    }
+                    break;
+                default:
+            }
+        };
+        document.addEventListener('keydown', onKeyDown);
+        document.addEventListener('keyup', onKeyUp);
+        return () => {
+            document.removeEventListener('keydown', onKeyDown);
+            document.removeEventListener('keyup', onKeyUp);
+        };
+    }, [playPause, isDrawingMode, undo, redo, clear, toggleMode]);
+    return (React.createElement(FullscreenProvider, null,
+        React.createElement("div", { className: "relative flex flex-1 justify-between overflow-y-auto bg-gray-50", ref: setWrapper },
+            React.createElement("div", { className: clsx('absolute inset-0 size-full overflow-hidden', isDrawingMode && (drawingTool === 'eraser' ? 'cursor-pointer' : 'cursor-crosshair')) },
+                React.createElement("canvas", { ref: setCanvas, width: canvasSize.width, height: canvasSize.height, className: "absolute inset-0" }),
+                React.createElement("canvas", { ref: setDrawingCanvas, width: canvasSize.width, height: canvasSize.height, className: clsx('absolute inset-0', {
+                        'pointer-events-none': !isDrawingMode,
+                    }) })),
+            React.createElement(Timer, null),
+            React.createElement("div", { className: "absolute top-8 left-8 flex w-[352px] flex-col gap-y-8 overflow-auto" },
+                React.createElement(TeamPanel, { teamNumber: round.teamASide, teamName: match.teamA.name, teamScore: round.teamAScore }),
+                React.createElement(TeamPanel, { teamNumber: round.teamBSide, teamName: match.teamB.name, teamScore: round.teamBScore })),
+            React.createElement(KillsFeed, null)),
+        React.createElement(RoundsBar, null),
+        React.createElement(PlaybackBar, { drawing: drawing })));
+}
+//# sourceMappingURL=viewer-2d.js.map

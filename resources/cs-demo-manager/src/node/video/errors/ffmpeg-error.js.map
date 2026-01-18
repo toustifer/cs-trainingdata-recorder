@@ -1,0 +1,1 @@
+{"version":3,"file":"ffmpeg-error.js","sourceRoot":"","sources":["ffmpeg-error.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AACnD,OAAO,EAAE,YAAY,EAAE,MAAM,iBAAiB,CAAC;AAE/C,MAAM,OAAO,WAAY,SAAQ,YAAY;IAC3C,YAAmB,MAAc;QAC/B,KAAK,CAAC,SAAS,CAAC,WAAW,EAAE,cAAc,EAAE,MAAM,CAAC,CAAC;IACvD,CAAC;CACF"}

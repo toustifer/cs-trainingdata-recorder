@@ -1,0 +1,1 @@
+{"version":3,"file":"demo-parsing-error.js","sourceRoot":"","sources":["demo-parsing-error.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,6BAA6B,CAAC;AACxD,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AAEnD,MAAM,OAAO,gBAAiB,SAAQ,SAAS;IAC7C;QACE,KAAK,CAAC,SAAS,CAAC,4BAA4B,CAAC,CAAC;QAC9C,IAAI,CAAC,OAAO,GAAG,0BAA0B,CAAC;IAC5C,CAAC;CACF"}

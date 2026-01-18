@@ -1,0 +1,1 @@
+{"version":3,"file":"steam-too-many-requests.js","sourceRoot":"","sources":["steam-too-many-requests.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AACnD,OAAO,EAAE,aAAa,EAAE,MAAM,kBAAkB,CAAC;AAEjD,MAAM,OAAO,mBAAoB,SAAQ,aAAa;IACpD;QACE,KAAK,EAAE,CAAC;QACR,IAAI,CAAC,IAAI,GAAG,SAAS,CAAC,uBAAuB,CAAC;QAC9C,IAAI,CAAC,OAAO,GAAG,sCAAsC,CAAC;IACxD,CAAC;CACF"}

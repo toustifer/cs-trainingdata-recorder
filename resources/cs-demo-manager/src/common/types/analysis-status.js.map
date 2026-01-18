@@ -1,0 +1,1 @@
+{"version":3,"file":"analysis-status.js","sourceRoot":"","sources":["analysis-status.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,MAAM,cAAc,GAAG;IAC5B,OAAO,EAAE,SAAS;IAClB,SAAS,EAAE,WAAW;IACtB,YAAY,EAAE,eAAe;IAC7B,cAAc,EAAE,iBAAiB;IACjC,SAAS,EAAE,iBAAiB;IAC5B,WAAW,EAAE,cAAc;IAC3B,aAAa,EAAE,gBAAgB;CACvB,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"delete-demos-handler.js","sourceRoot":"","sources":["delete-demos-handler.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,WAAW,EAAE,MAAM,6BAA6B,CAAC;AAO1D,MAAM,CAAC,KAAK,UAAU,kBAAkB,CAAC,KAAa;IACpD,MAAM,EAAE,YAAY,EAAE,eAAe,EAAE,GAAG,MAAM,WAAW,CAAC,KAAK,CAAC,CAAC;IAEnE,MAAM,OAAO,GAA6B;QACxC,YAAY;QACZ,eAAe;KAChB,CAAC;IAEF,OAAO,OAAO,CAAC;AACjB,CAAC"}

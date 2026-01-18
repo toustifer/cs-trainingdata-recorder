@@ -1,0 +1,1 @@
+{"version":3,"file":"copy-match-share-code.js","sourceRoot":"","sources":["copy-match-share-code.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAC;AAC1B,OAAO,EAAE,eAAe,EAAE,MAAM,iCAAiC,CAAC;AAClE,OAAO,EAAE,mBAAmB,EAAE,MAAM,mDAAmD,CAAC;AAExF,MAAM,UAAU,wBAAwB;IACtC,MAAM,KAAK,GAAG,eAAe,EAAE,CAAC;IAEhC,OAAO,oBAAC,mBAAmB,IAAC,SAAS,EAAE,KAAK,CAAC,SAAS,GAAI,CAAC;AAC7D,CAAC"}

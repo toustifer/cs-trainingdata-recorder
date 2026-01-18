@@ -1,0 +1,12 @@
+import React from 'react';
+import { ColumnsVisibilityDropdown } from 'csdm/ui/components/table/columns-visibility-dropdown';
+import { Status } from 'csdm/common/types/status';
+import { useTeamsStatus } from '../use-teams-status';
+import { useTeamsTable } from '../table/use-teams-table';
+export function TeamsColumnsVisibility() {
+    const table = useTeamsTable();
+    const status = useTeamsStatus();
+    const isDisabled = status !== Status.Success;
+    return React.createElement(ColumnsVisibilityDropdown, { table: table, isDisabled: isDisabled });
+}
+//# sourceMappingURL=teams-columns-visibility.js.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"pause-video-queue-handler.js","sourceRoot":"","sources":["pause-video-queue-handler.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,yBAAyB,CAAC;AAErD,MAAM,CAAC,KAAK,UAAU,sBAAsB;IAC1C,UAAU,CAAC,KAAK,EAAE,CAAC;IAEnB,OAAO,OAAO,CAAC,OAAO,EAAE,CAAC;AAC3B,CAAC"}

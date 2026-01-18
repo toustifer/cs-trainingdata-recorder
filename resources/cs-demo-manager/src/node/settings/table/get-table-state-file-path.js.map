@@ -1,0 +1,1 @@
+{"version":3,"file":"get-table-state-file-path.js","sourceRoot":"","sources":["get-table-state-file-path.ts"],"names":[],"mappings":"AAAA,OAAO,IAAI,MAAM,WAAW,CAAC;AAC7B,OAAO,EAAE,gBAAgB,EAAE,MAAM,0CAA0C,CAAC;AAG5E,MAAM,UAAU,qBAAqB,CAAC,SAAoB;IACxD,OAAO,IAAI,CAAC,OAAO,CAAC,gBAAgB,EAAE,EAAE,QAAQ,EAAE,GAAG,SAAS,OAAO,CAAC,CAAC;AACzE,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"get-team-score-class-name.js","sourceRoot":"","sources":["get-team-score-class-name.ts"],"names":[],"mappings":"AAAA,MAAM,UAAU,qBAAqB,CAAC,KAAa,EAAE,aAAqB;IACxE,IAAI,KAAK,KAAK,aAAa,EAAE,CAAC;QAC5B,OAAO,eAAe,CAAC;IACzB,CAAC;IAED,OAAO,KAAK,GAAG,aAAa,CAAC,CAAC,CAAC,gBAAgB,CAAC,CAAC,CAAC,cAAc,CAAC;AACnE,CAAC"}

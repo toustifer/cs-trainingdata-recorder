@@ -1,0 +1,1 @@
+{"version":3,"file":"get-date-timestamp-at-midnight.js","sourceRoot":"","sources":["get-date-timestamp-at-midnight.ts"],"names":[],"mappings":"AAAA,MAAM,UAAU,0BAA0B,CAAC,IAAU;IACnD,OAAO,MAAM,CAAC,QAAQ,CAAC,CAAC,IAAI,IAAI,CAAC,IAAI,CAAC,WAAW,EAAE,EAAE,IAAI,CAAC,QAAQ,EAAE,EAAE,IAAI,CAAC,OAAO,EAAE,CAAC,CAAC,OAAO,EAAE,GAAG,IAAI,CAAC,CAAC,OAAO,CAAC,CAAC,CAAC,CAAC,CAAC;AACtH,CAAC"}

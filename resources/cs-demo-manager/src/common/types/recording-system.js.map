@@ -1,0 +1,1 @@
+{"version":3,"file":"recording-system.js","sourceRoot":"","sources":["recording-system.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,MAAM,eAAe,GAAG;IAC7B,aAAa,EAAE,IAAI;IACnB,IAAI,EAAE,MAAM;CACJ,CAAC;AAIX,MAAM,UAAU,sBAAsB,CAAC,KAAa;IAClD,OAAO,MAAM,CAAC,MAAM,CAAC,eAAe,CAAC,CAAC,QAAQ,CAAC,KAAwB,CAAC,CAAC;AAC3E,CAAC"}

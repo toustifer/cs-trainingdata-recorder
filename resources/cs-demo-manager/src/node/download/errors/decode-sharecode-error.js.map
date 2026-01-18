@@ -1,0 +1,1 @@
+{"version":3,"file":"decode-sharecode-error.js","sourceRoot":"","sources":["decode-sharecode-error.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,6BAA6B,CAAC;AACxD,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AAEnD,MAAM,OAAO,oBAAqB,SAAQ,SAAS;IACjD,YAAmB,SAAiB;QAClC,KAAK,CAAC,SAAS,CAAC,oBAAoB,CAAC,CAAC;QACtC,IAAI,CAAC,OAAO,GAAG,6BAA6B,SAAS,EAAE,CAAC;IAC1D,CAAC;CACF"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"use-selected-analysis-demo-id.js","sourceRoot":"","sources":["use-selected-analysis-demo-id.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,gBAAgB,EAAE,MAAM,sBAAsB,CAAC;AAExD,MAAM,UAAU,mBAAmB;IACjC,MAAM,KAAK,GAAG,gBAAgB,EAAE,CAAC;IAEjC,OAAO,KAAK,CAAC,QAAQ,CAAC,IAAI,CAAC,CAAC,QAAQ,EAAE,EAAE,CAAC,QAAQ,CAAC,QAAQ,KAAK,KAAK,CAAC,gBAAgB,CAAC,CAAC;AACzF,CAAC"}

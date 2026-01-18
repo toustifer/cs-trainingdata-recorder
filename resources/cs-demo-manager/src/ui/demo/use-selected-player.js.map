@@ -1,0 +1,1 @@
+{"version":3,"file":"use-selected-player.js","sourceRoot":"","sources":["use-selected-player.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,YAAY,EAAE,MAAM,kBAAkB,CAAC;AAEhD,MAAM,UAAU,iBAAiB;IAC/B,MAAM,SAAS,GAAG,YAAY,EAAE,CAAC;IAEjC,IAAI,SAAS,CAAC,cAAc,KAAK,SAAS,EAAE,CAAC;QAC3C,MAAM,IAAI,KAAK,CAAC,oBAAoB,CAAC,CAAC;IACxC,CAAC;IAED,OAAO,SAAS,CAAC,cAAc,CAAC;AAClC,CAAC"}

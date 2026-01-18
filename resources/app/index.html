@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CS2 Data Reaper - Industrial Edition</title>
+    <style>
+        :root { --bg: #121212; --surface: #1e1e1e; --primary: #ff9800; --accent: #2196f3; --text: #e0e0e0; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 0; display: flex; height: 100vh; overflow: hidden; }
+
+        .sidebar { width: 350px; background: #181818; border-right: 1px solid #333; display: flex; flex-direction: column; }
+        .db-panel { width: 400px; background: #181818; border-left: 1px solid #333; display: flex; flex-direction: column; overflow-y: auto; }
+        .sidebar-header { padding: 15px; background: #222; border-bottom: 1px solid #333; font-weight: bold; color: var(--primary); }
+        #file-list { flex: 1; overflow-y: auto; padding: 0; }
+        .file-item { padding: 10px 15px; border-bottom: 1px solid #2a2a2a; font-size: 13px; cursor: pointer; user-select: none; transition: all 0.2s; }
+        .file-item:hover { background: #252525; }
+        .file-item.selected { background: #2a4a6a; border-left: 3px solid var(--accent); }
+        .file-item.all-files { font-weight: bold; color: var(--primary); background: #222; }
+        .file-item.all-files.selected { background: #3a3a0a; border-left-color: var(--primary); }
+        .file-name { color: #fff; display: block; margin-bottom: 4px; word-break: break-all; }
+        .file-status { color: #888; font-size: 11px; }
+        .file-players { margin-top: 5px; color: #aaa; font-size: 11px; line-height: 1.4; padding-left: 8px; border-left: 2px solid var(--accent); display: none; }
+        .file-players.visible { display: block; }
+        .file-players div { padding: 2px 4px; cursor: pointer; transition: background 0.2s; border-radius: 2px; }
+        .file-players div:hover { background: #333; color: #fff; }
+        .file-players div:active { background: var(--accent); }
+        .player-progress { font-size: 10px; margin-left: 5px; padding: 1px 5px; border-radius: 3px; }
+        .player-progress.complete { background: #2e7d32; color: #fff; }
+        .player-progress.partial { background: #f57c00; color: #fff; }
+        .player-progress.none { background: #555; color: #aaa; }
+        
+        .main-content { flex: 1; display: flex; flex-direction: column; padding: 20px; overflow: hidden; min-width: 0; }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px; margin-bottom: 20px; flex-shrink: 0; }
+        .title { font-size: 24px; font-weight: bold; color: var(--primary); }
+        .card { background: var(--surface); padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); margin-bottom: 20px; flex-shrink: 0; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-size: 12px; color: #888; text-transform: uppercase; }
+        .row { display: flex; gap: 10px; }
+        input { flex: 1; background: #2a2a2a; border: 1px solid #444; color: #fff; padding: 8px; border-radius: 4px; outline: none; }
+        button { background: var(--accent); border: none; color: white; padding: 8px 15px; border-radius: 4px; cursor: pointer; }
+        button.primary { background: var(--primary); font-weight: bold; width: 100%; padding: 15px; font-size: 18px; }
+        button.secondary { background: var(--accent); font-weight: bold; width: 100%; padding: 12px; font-size: 14px; margin-bottom: 10px; }
+        #log { flex: 1; background: #000; color: #00ff00; font-family: 'Consolas', monospace; padding: 15px; border-radius: 4px; overflow-y: auto; white-space: pre-wrap; font-size: 12px; border: 1px solid #333; min-height: 0; max-height: 500px; }
+        .progress-container { width: 100%; background: #333; height: 10px; border-radius: 5px; margin-top: 5px; overflow: hidden; flex-shrink: 0; }
+        #progress-bar { width: 0%; height: 100%; background: var(--primary); transition: width 0.3s; }
+        
+        /* 简单的复制反馈提示 */
+        .copy-toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #000; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 12px; z-index: 1000; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+        
+        .data-list { max-height: 200px; overflow-y: auto; background: #111; border: 1px solid #333; border-radius: 4px; margin-top: 10px; }
+        .data-item { padding: 8px 12px; border-bottom: 1px solid #222; font-size: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background 0.2s; }
+        .data-item:hover { background: #252525; }
+        .data-item .name { font-weight: bold; color: #fff; }
+        .data-item .time { color: #666; font-size: 11px; }
+        .data-item .action { color: var(--accent); }
+
+        /* 数据库面板样式 */
+        .db-section { padding: 15px; border-bottom: 1px solid #333; }
+        .db-stat-card { background: #252525; padding: 12px; border-radius: 6px; margin-bottom: 10px; border-left: 3px solid var(--accent); }
+        .db-stat-title { font-size: 11px; color: #888; text-transform: uppercase; margin-bottom: 5px; }
+        .db-stat-value { font-size: 24px; font-weight: bold; color: var(--primary); }
+        .db-stat-sub { font-size: 10px; color: #666; margin-top: 3px; }
+        .db-demo-list { max-height: 400px; overflow-y: auto; }
+        .db-demo-item { background: #222; padding: 10px; margin-bottom: 8px; border-radius: 4px; font-size: 11px; border-left: 2px solid #444; transition: all 0.2s; }
+        .db-demo-item:hover { background: #2a2a2a; border-left-color: var(--accent); }
+        .db-demo-name { color: #fff; font-weight: bold; margin-bottom: 5px; word-break: break-all; }
+        .db-demo-checksum { color: #666; font-family: 'Consolas', monospace; font-size: 10px; }
+        .db-demo-windows { color: var(--primary); font-size: 10px; margin-top: 5px; }
+        .db-connection-status { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
+        .db-connection-status.connected { background: #4caf50; box-shadow: 0 0 6px #4caf50; }
+        .db-connection-status.disconnected { background: #f44336; box-shadow: 0 0 6px #f44336; }
+
+        /* 自动刷新脉冲动画 */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .db-connection-status.auto-refresh {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* 悬浮日志窗口 */
+        .log-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .log-modal.show {
+            display: flex;
+        }
+        .log-modal-content {
+            background: #1a1a1a;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            width: 90%;
+            height: 85%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+        }
+        .log-modal-header {
+            padding: 15px 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 6px 6px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .log-modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #000;
+            font-weight: bold;
+        }
+        .log-modal-header .controls {
+            display: flex;
+            gap: 10px;
+        }
+        .log-modal-header button {
+            padding: 6px 12px;
+            font-size: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            cursor: pointer;
+            color: #fff;
+            transition: all 0.2s;
+        }
+        .log-modal-header button:hover {
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .log-modal-body {
+            flex: 1;
+            padding: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .log-modal-log {
+            flex: 1;
+            background: #000;
+            color: #00ff00;
+            font-family: 'Consolas', monospace;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-size: 13px;
+            border: 1px solid #333;
+        }
+        .log-modal-progress {
+            width: 100%;
+            background: #333;
+            height: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+        .log-modal-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div id="toast" class="copy-toast">已复制并填入 Steam ID</div>
+
+    <!-- 悬浮日志窗口 -->
+    <div id="logModal" class="log-modal">
+        <div class="log-modal-content">
+            <div class="log-modal-header">
+                <h3>📊 实时日志监控</h3>
+                <div class="controls">
+                    <button onclick="window.clearLog()">🗑️ 清除日志</button>
+                    <button onclick="window.copyLog()">📋 复制日志</button>
+                    <button onclick="window.killAllTasks()" style="background: rgba(198, 40, 40, 0.5); border-color: rgba(211, 47, 47, 0.7);">⛔ 终止所有任务</button>
+                    <button onclick="window.closeLogModal()">✕ 关闭</button>
+                </div>
+            </div>
+            <div class="log-modal-body">
+                <div id="logModalContent" class="log-modal-log">等待任务指令...</div>
+                <div class="log-modal-progress">
+                    <div id="logModalProgressBar" class="log-modal-progress-bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="sidebar-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>Demo 文件列表</span>
+            <div style="display: flex; gap: 5px;">
+                <button onclick="window.openSelectedDemoFolder()" id="openDemoFolderBtn" style="padding: 4px 10px; font-size: 11px; background: #444; border: 1px solid #666; border-radius: 4px; cursor: pointer; color: #aaa;">
+                    📁 打开文件夹
+                </button>
+                <button onclick="window.refreshProgress()" id="refreshProgressBtn" style="padding: 4px 10px; font-size: 11px; background: #444; border: 1px solid #666; border-radius: 4px; cursor: pointer; color: #aaa;">
+                    刷新进度
+                </button>
+            </div>
+        </div>
+        <div id="file-list">
+            <div style="padding:15px; color:#666; text-align:center;">请选择 Demo 目录</div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div class="title">CS2 DATA REAPER <span style="color: #fff; font-size: 14px; margin-left: 10px;">Dual Mode</span></div>
+            <button onclick="openConfigFolder()" style="font-size: 12px;">打开配置文件夹</button>
+        </div>
+
+        <div class="card">
+            <div class="grid">
+                <div class="input-group"><label>Demo 总目录</label><div class="row"><input type="text" id="demoDir"><button onclick="window.selectDir('demoDir')">浏览</button></div></div>
+                <div class="input-group"><label>输出主目录</label><div class="row"><input type="text" id="outputDir"><button onclick="window.selectDir('outputDir')">浏览</button></div></div>
+            </div>
+            <div class="grid">
+                <div class="input-group"><label>数据库密码</label><input type="password" id="dbPass" value="88683139"></div>
+                <div class="input-group"><label>回合号 (例如: 1,2,3 或留空为全部)</label><input type="text" id="rounds" placeholder="1,2,3,4..."></div>
+            </div>
+            <div class="grid">
+                <div class="input-group"><label>玩家 Steam ID (留空=录制所有玩家)</label><input type="text" id="steamId" placeholder="留空录制所有玩家，或点击左侧玩家名填入"></div>
+                <div class="input-group"><label>录制倍速 (默认 8)</label><input type="number" id="speed" value="8"></div>
+                <div class="input-group"><label>每窗口帧数 (默认 10)</label><input type="number" id="framesPerWindow" value="10" min="2" max="30"></div>
+            </div>
+            <div style="margin: 10px 0; padding: 8px; background: #1a1a2e; border-radius: 4px;">
+                <label style="display: flex; align-items: center; cursor: pointer; color: #ff6b6b;">
+                    <input type="checkbox" id="forceReanalyze" style="margin-right: 8px; width: 18px; height: 18px;">
+                    <span>强制重新导出训练窗口 (覆盖数据库中已有数据)</span>
+                </label>
+            </div>
+
+            <div style="margin: 10px 0; padding: 8px; background: #2a1a1a; border-radius: 4px; border: 1px solid #d32f2f;">
+                <button onclick="window.clearDatabase()" style="width: 100%; padding: 10px; font-size: 13px; background: #c62828; border: none; border-radius: 4px; cursor: pointer; color: white; font-weight: bold;">
+                    🗑️ 清空数据库所有表 (慎用！)
+                </button>
+                <div style="margin-top: 5px; font-size: 10px; color: #999;">
+                    完全清空 demos, matches, training_windows 表，解决数据库同步问题
+                </div>
+            </div>
+
+            <!-- 一键全流程按钮 -->
+            <div style="margin-bottom: 10px;">
+                <button onclick="window.startFullPipeline()"
+                        style="width: 100%; padding: 15px; font-size: 16px; font-weight: bold;
+                               background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                               border: none; border-radius: 8px; cursor: pointer; color: white;
+                               box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
+                    🚀 一键全流程（分析+录制）
+                </button>
+                <div style="margin-top: 5px; font-size: 11px; color: #999; text-align: center;">
+                    自动逐个处理：分析demo → 录制视频 → 下一个demo
+                </div>
+            </div>
+
+            <div class="grid" style="grid-template-columns: 1fr 1.5fr 0.8fr;">
+                <button class="secondary" id="analyzeBtn" onclick="window.startAnalysis()">1. 分析入库</button>
+                <button class="primary" id="startBtn" onclick="window.startHarvest()">2. 启动录制收割</button>
+                <button class="secondary" style="background: #4caf50;" onclick="window.startVisualize()">3. 可视化(配置)</button>
+            </div>
+        </div>
+
+        <!-- 新增：选择文件夹播放按钮 -->
+        <div class="card" style="padding: 15px; margin-bottom: 10px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button onclick="window.selectFolderToVisualize()" style="width: 100%; padding: 12px; font-size: 14px; background: linear-gradient(135deg, #4a9eff, #6c5ce7); border: none; border-radius: 6px; cursor: pointer; color: white;">
+                    📁 选择文件夹播放
+                </button>
+                <button onclick="window.browseDemoVisualization()" style="width: 100%; padding: 12px; font-size: 14px; background: linear-gradient(135deg, #f093fb, #f5576c); border: none; border-radius: 6px; cursor: pointer; color: white;">
+                    🎬 选择Demo浏览
+                </button>
+            </div>
+        </div>
+
+        <!-- 日志控制按钮 -->
+        <div style="display: flex; gap: 10px; margin-bottom: 5px;">
+            <button onclick="window.openLogModal()" style="padding: 6px 12px; font-size: 12px; background: linear-gradient(135deg, var(--primary), var(--accent)); border: 1px solid var(--primary); border-radius: 4px; cursor: pointer; color: #fff; font-weight: bold;">
+                🪟 弹出日志
+            </button>
+            <button onclick="window.clearLog()" style="padding: 6px 12px; font-size: 12px; background: #333; border: 1px solid #555; border-radius: 4px; cursor: pointer; color: #aaa;">
+                🗑️ 清除日志
+            </button>
+            <button onclick="window.copyLog()" style="padding: 6px 12px; font-size: 12px; background: #333; border: 1px solid #555; border-radius: 4px; cursor: pointer; color: #aaa;">
+                📋 复制日志
+            </button>
+            <button onclick="window.killAllTasks()" style="padding: 6px 12px; font-size: 12px; background: #c62828; border: 1px solid #d32f2f; border-radius: 4px; cursor: pointer; color: #fff;">
+                ⛔ 终止所有任务
+            </button>
+        </div>
+
+        <div id="log">等待任务指令...</div>
+        <div class="progress-container"><div id="progress-bar"></div></div>
+    </div>
+
+    <!-- 右侧数据库状态面板 -->
+    <div class="db-panel">
+        <div class="sidebar-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>
+                <span class="db-connection-status" id="dbConnectionStatus"></span>
+                数据库状态
+            </span>
+            <div style="display: flex; gap: 5px; align-items: center;">
+                <label style="display: flex; align-items: center; cursor: pointer; margin: 0; font-size: 10px; color: #888; text-transform: none;">
+                    <input type="checkbox" id="autoRefreshDb" checked style="margin-right: 3px; width: 14px; height: 14px;">
+                    <span>自动</span>
+                </label>
+                <button onclick="window.refreshDatabaseStatus(true)" id="refreshDbBtn" style="padding: 4px 10px; font-size: 11px; background: #444; border: 1px solid #666; border-radius: 4px; cursor: pointer; color: #aaa;">
+                    🔄
+                </button>
+            </div>
+        </div>
+
+        <!-- 统计卡片 -->
+        <div class="db-section">
+            <div class="db-stat-card">
+                <div class="db-stat-title">Demos 表</div>
+                <div class="db-stat-value" id="dbDemosCount">-</div>
+                <div class="db-stat-sub">Demo 文件记录</div>
+            </div>
+            <div class="db-stat-card">
+                <div class="db-stat-title">Matches 表</div>
+                <div class="db-stat-value" id="dbMatchesCount">-</div>
+                <div class="db-stat-sub">比赛记录</div>
+            </div>
+            <div class="db-stat-card">
+                <div class="db-stat-title">Training Windows 表</div>
+                <div class="db-stat-value" id="dbWindowsCount">-</div>
+                <div class="db-stat-sub">训练窗口数据</div>
+            </div>
+        </div>
+
+        <!-- Demo 列表 -->
+        <div class="db-section" style="flex: 1; overflow: hidden; display: flex; flex-direction: column;">
+            <div style="font-size: 12px; color: #888; margin-bottom: 10px; text-transform: uppercase;">最近的 Demos (按日期)</div>
+            <div class="db-demo-list" id="dbDemoList">
+                <div style="padding: 20px; color: #666; text-align: center;">点击刷新按钮加载数据</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+        const path = require('path');
+
+        console.log("Script loaded successfully");
+
+        let selectedFile = null; // null 表示选择全部，否则为具体文件路径
+        let dbAutoRefreshTimer = null; // 数据库自动刷新定时器
+
+        // 显式挂载到 window 对象，确保 HTML onclick 能找到
+        window.selectDir = async function(id) {
+            console.log("selectDir called for " + id);
+            const dirPath = await ipcRenderer.invoke('select-dir');
+            if (dirPath) {
+                document.getElementById(id).value = dirPath;
+                if (id === 'demoDir') {
+                    window.refreshDemoList(dirPath);
+                }
+            }
+        };
+
+        window.refreshDataList = async function(dirPath) {
+            if (!dirPath) dirPath = document.getElementById('outputDir').value;
+            if (!dirPath) return;
+
+            const listEl = document.getElementById('data-list');
+            listEl.innerHTML = '<div style="padding:10px; color:#888; text-align:center;">扫描中...</div>';
+
+            const folders = await ipcRenderer.invoke('scan-training-data', dirPath);
+            listEl.innerHTML = '';
+
+            if (folders.length === 0) {
+                listEl.innerHTML = '<div style="padding:10px; color:#888; text-align:center;">该目录下暂无训练数据</div>';
+                return;
+            }
+
+            folders.forEach(f => {
+                const item = document.createElement('div');
+                item.className = 'data-item';
+                const dateStr = new Date(f.mtime).toLocaleString();
+                item.innerHTML = `
+                    <span class="name">${f.name}</span>
+                    <div>
+                        <span class="time">${dateStr}</span>
+                        <span class="action">▶ 播放</span>
+                    </div>
+                `;
+                item.onclick = () => window.visualizeFolder(f.path);
+                listEl.appendChild(item);
+            });
+        };
+
+        window.visualizeFolder = function(folderPath) {
+            window.appendLog(`\n>>> 请求播放数据: ${folderPath}\n`);
+            ipcRenderer.send('start-visualization', { targetFolder: folderPath });
+        };
+
+        window.selectFolderToVisualize = async function() {
+            // 默认打开输出主目录
+            const defaultPath = document.getElementById('outputDir').value;
+            const folderPath = await ipcRenderer.invoke('select-dir', defaultPath);
+            if (folderPath) {
+                window.visualizeFolder(folderPath);
+            }
+        };
+
+        window.killAllTasks = async function() {
+            if (!confirm('确定要终止所有正在运行的任务吗？\n这将强制结束所有进程（录制、可视化等）')) {
+                return;
+            }
+
+            window.appendLog('\n>>> 正在终止所有任务...\n');
+            const result = await ipcRenderer.invoke('kill-all-tasks');
+
+            if (result.success) {
+                window.appendLog(`[OK] 已终止 ${result.count} 个进程\n`);
+
+                // 重置浏览状态
+                currentBrowseState = null;
+
+                // 重新启用按钮
+                document.getElementById('analyzeBtn').disabled = false;
+                document.getElementById('startBtn').disabled = false;
+            } else {
+                window.appendLog(`[错误] ${result.error}\n`);
+            }
+        };
+
+        window.clearDatabase = async function() {
+            if (!confirm('⚠️ 警告：此操作将完全清空数据库中的所有数据！\n\n将删除以下表的所有记录：\n- demos\n- matches\n- training_windows\n- 所有相关联的表\n\n此操作不可撤销！\n\n确定要继续吗？')) {
+                return;
+            }
+
+            if (!confirm('最后确认：你确定要清空数据库吗？\n\n所有已分析的数据都会丢失！')) {
+                return;
+            }
+
+            const dbPass = document.getElementById('dbPass').value;
+            if (!dbPass) {
+                window.appendLog('\n[错误] 请先输入数据库密码\n');
+                return;
+            }
+
+            window.appendLog('\n>>> 开始清空数据库...\n');
+
+            try {
+                const result = await ipcRenderer.invoke('clear-database', {
+                    dbUser: 'postgres',
+                    dbPass: dbPass
+                });
+
+                if (result.error) {
+                    window.appendLog(`[错误] 清空失败: ${result.error}\n`);
+                } else {
+                    window.appendLog(`[成功] 已清空所有表\n`);
+                    window.appendLog(`  - demos: ${result.demosDeleted} 条\n`);
+                    window.appendLog(`  - matches: ${result.matchesDeleted} 条\n`);
+                    window.appendLog(`  - training_windows: ${result.windowsDeleted} 条\n`);
+                    window.appendLog(`\n✓ 数据库已完全清空，可以重新开始分析\n`);
+
+                    // 刷新数据库状态
+                    window.refreshDatabaseStatus();
+                }
+            } catch (err) {
+                window.appendLog(`[错误] ${err.message}\n`);
+            }
+        };
+
+        window.refreshDemoList = async function(dirPath) {
+            const listEl = document.getElementById('file-list');
+            listEl.innerHTML = '<div style="padding:15px; color:#888;">扫描中...</div>';
+
+            const demos = await ipcRenderer.invoke('scan-demos', dirPath);
+            listEl.innerHTML = '';
+
+            // 添加"全部"选项
+            const allItem = document.createElement('div');
+            allItem.className = 'file-item all-files selected';
+            allItem.dataset.path = 'ALL';
+            allItem.innerHTML = `
+                <span class="file-name">✓ 全部文件</span>
+                <span class="file-status">点击下方文件可单独选择</span>
+            `;
+            allItem.onclick = () => window.selectFileItem(allItem, null);
+            listEl.appendChild(allItem);
+
+            if (demos.length === 0) {
+                const emptyDiv = document.createElement('div');
+                emptyDiv.style.cssText = 'padding:15px; color:#888; text-align:center;';
+                emptyDiv.innerText = '未找到 .dem 文件';
+                listEl.appendChild(emptyDiv);
+                return;
+            }
+
+            demos.forEach(filePath => {
+                const fileName = filePath.split(/[\\/]/).pop();
+                const item = document.createElement('div');
+                item.className = 'file-item';
+                item.id = 'file-' + Buffer.from(filePath).toString('base64').replace(/[+/=]/g, '');
+                item.dataset.path = filePath;
+                item.innerHTML = `
+                    <span class="file-name">${fileName}</span>
+                    <span class="file-status">等待检查...</span>
+                    <div class="file-players"></div>
+                `;
+                item.onclick = () => window.selectFileItem(item, filePath);
+                listEl.appendChild(item);
+            });
+
+            // 自动触发批量后台检查
+            const config = {
+                files: demos,
+                dbUser: 'postgres',
+                dbPass: document.getElementById('dbPass').value
+            };
+            ipcRenderer.send('quick-scan-players', config);
+        };
+
+        window.selectFileItem = function(itemEl, filePath) {
+            // 移除所有选中状态
+            document.querySelectorAll('.file-item').forEach(el => el.classList.remove('selected'));
+            // 添加当前选中
+            itemEl.classList.add('selected');
+            selectedFile = filePath; // null 表示全部
+
+            // 更新UI提示
+            if (filePath === null) {
+                window.appendLog('\n[已选择] 全部文件\n');
+                // 选择全部时清空 Steam ID，录制时会自动处理所有玩家
+                document.getElementById('steamId').value = '';
+            } else {
+                const fileName = filePath.split(/[\\/]/).pop();
+                window.appendLog(`\n[已选择] ${fileName}\n`);
+                // 选择单个 demo 时也清空 Steam ID，方便录制所有玩家
+                document.getElementById('steamId').value = '';
+                window.appendLog('[提示] Steam ID 已清空，将录制该 demo 所有玩家。点击左侧玩家名可只录制单个玩家。\n');
+            }
+        };
+
+        window.openConfigFolder = async function() {
+            await ipcRenderer.invoke('open-config-folder');
+        };
+
+        window.openSelectedDemoFolder = async function() {
+            if (!selectedFile) {
+                window.showToast('请先选择一个 Demo 文件');
+                return;
+            }
+
+            const outputDir = document.getElementById('outputDir').value;
+            if (!outputDir || outputDir.trim() === '') {
+                window.showToast('请先设置输出主目录');
+                return;
+            }
+
+            // 获取demo文件名（去掉.dem扩展名）
+            const path = require('path');
+            const demoFileName = path.basename(selectedFile, '.dem');
+
+            // 构建输出目录路径：输出主目录/demo名称
+            const demoOutputFolder = path.join(outputDir, demoFileName);
+
+            window.appendLog(`\n[打开文件夹] ${demoOutputFolder}\n`);
+
+            try {
+                const result = await ipcRenderer.invoke('open-folder', demoOutputFolder);
+                if (result && result.error) {
+                    window.showToast('打开失败: ' + result.error);
+                } else {
+                    window.showToast('正在打开文件夹...');
+                }
+            } catch (err) {
+                window.showToast('打开文件夹失败: ' + err.message);
+            }
+        };
+
+        window.appendLog = function(text) {
+            const log = document.getElementById('log');
+            const logModal = document.getElementById('logModalContent');
+
+            log.innerText += text;
+            logModal.innerText += text;  // 同步到悬浮窗口
+
+            // 限制日志大小：最多保留最后 2000 行或 500KB 字符
+            const MAX_LINES = 2000;
+            const MAX_CHARS = 500000;
+
+            let lines = log.innerText.split('\n');
+            if (lines.length > MAX_LINES) {
+                lines = lines.slice(-MAX_LINES);
+                const cleanedLog = '... (已自动清理旧日志) ...\n\n' + lines.join('\n');
+                log.innerText = cleanedLog;
+                logModal.innerText = cleanedLog;  // 同步到悬浮窗口
+            } else if (log.innerText.length > MAX_CHARS) {
+                // 按字符数限制
+                const cleanedLog = '... (已自动清理旧日志) ...\n\n' + log.innerText.slice(-MAX_CHARS);
+                log.innerText = cleanedLog;
+                logModal.innerText = cleanedLog;  // 同步到悬浮窗口
+            }
+
+            log.scrollTop = log.scrollHeight;
+            logModal.scrollTop = logModal.scrollHeight;  // 同步滚动
+
+            if (text.includes('[')) {
+                const match = text.match(/\['.*?(\d+)\/(\d+)\]/);
+                if (match) {
+                    const progress = (parseInt(match[1])/parseInt(match[2])*100);
+                    document.getElementById('progress-bar').style.width = progress + '%';
+                    document.getElementById('logModalProgressBar').style.width = progress + '%';  // 同步进度条
+                }
+            }
+        };
+
+        window.clearLog = function() {
+            document.getElementById('log').innerText = '日志已清除\n';
+            document.getElementById('logModalContent').innerText = '日志已清除\n';  // 同步到悬浮窗口
+            document.getElementById('progress-bar').style.width = '0%';
+            document.getElementById('logModalProgressBar').style.width = '0%';  // 同步进度条
+        };
+
+        window.openLogModal = function() {
+            const modal = document.getElementById('logModal');
+            modal.classList.add('show');
+            // 同步当前日志内容
+            const currentLog = document.getElementById('log').innerText;
+            document.getElementById('logModalContent').innerText = currentLog;
+            // 滚动到底部
+            setTimeout(() => {
+                document.getElementById('logModalContent').scrollTop = document.getElementById('logModalContent').scrollHeight;
+            }, 100);
+        };
+
+        window.closeLogModal = function() {
+            const modal = document.getElementById('logModal');
+            modal.classList.remove('show');
+        };
+
+        // 点击模态框背景关闭
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('logModal');
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    window.closeLogModal();
+                }
+            });
+
+            // ESC键关闭
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('show')) {
+                    window.closeLogModal();
+                }
+            });
+        });
+
+        window.copyLog = function() {
+            const logText = document.getElementById('log').innerText;
+            try {
+                // 使用 Electron 的 clipboard 模块
+                const { clipboard } = require('electron');
+                clipboard.writeText(logText);
+
+                // 显示复制成功提示
+                const btn = event.target;
+                const originalText = btn.innerText;
+                btn.innerText = '✓ 已复制';
+                btn.style.background = '#2e7d32';
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.background = '#333';
+                }, 1500);
+            } catch (err) {
+                console.error('复制失败:', err);
+                // 备用方案：创建临时文本框
+                const textarea = document.createElement('textarea');
+                textarea.value = logText;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert('已复制到剪贴板');
+            }
+        };
+
+        window.startAnalysis = function() {
+            console.log("startAnalysis clicked");
+            const demoDir = document.getElementById('demoDir').value;
+            const rounds = document.getElementById('rounds').value.trim();
+            const forceReanalyze = document.getElementById('forceReanalyze').checked;
+
+            const config = {
+                demoDir: demoDir,
+                selectedFile: selectedFile, // null=全部，否则为具体文件路径
+                rounds: rounds, // 可能为空字符串
+                dbUser: 'postgres',
+                dbPass: document.getElementById('dbPass').value,
+                forceReanalyze: forceReanalyze
+            };
+
+            document.getElementById('analyzeBtn').disabled = true;
+
+            if (selectedFile === null) {
+                window.appendLog("\n>>> 开始批量分析所有文件...\n");
+            } else {
+                const fileName = selectedFile.split(/[\\/]/).pop();
+                window.appendLog(`\n>>> 开始分析单个文件: ${fileName}\n`);
+                if (rounds) {
+                    window.appendLog(`>>> 指定回合: ${rounds}\n`);
+                }
+            }
+
+            // 重置状态
+            document.querySelectorAll('.file-status').forEach(el => {
+                if (!el.closest('.all-files')) {
+                    el.innerText = '等待处理';
+                }
+            });
+            document.querySelectorAll('.file-players').forEach(el => {
+                el.innerHTML = '';
+                el.classList.remove('visible');
+            });
+
+            ipcRenderer.send('start-analysis', config);
+        };
+
+        window.startHarvest = async function() {
+            console.log("startHarvest clicked");
+            const rounds = document.getElementById('rounds').value.trim();
+            const forceReanalyze = document.getElementById('forceReanalyze').checked;
+
+            const config = {
+                demoDir: document.getElementById('demoDir').value,
+                outputDir: document.getElementById('outputDir').value,
+                playerSteamId: document.getElementById('steamId').value,
+                selectedFile: selectedFile, // null=全部，否则为具体文件路径
+                rounds: rounds,
+                dbUser: 'postgres',
+                dbPass: document.getElementById('dbPass').value,
+                speed: document.getElementById('speed').value,
+                framesPerWindow: document.getElementById('framesPerWindow').value,
+                forceReanalyze: forceReanalyze
+            };
+
+            await ipcRenderer.invoke('save-config', config);
+            document.getElementById('startBtn').disabled = true;
+
+            if (selectedFile === null) {
+                window.appendLog("\n>>> 启动批量录制收割流程（所有文件）...\n");
+            } else {
+                const fileName = selectedFile.split(/[\\/]/).pop();
+                window.appendLog(`\n>>> 启动单文件录制: ${fileName}\n`);
+                if (rounds) {
+                    window.appendLog(`>>> 指定回合: ${rounds}\n`);
+                }
+            }
+
+            ipcRenderer.send('start-process', config);
+        };
+
+        window.startFullPipeline = async function() {
+            console.log("startFullPipeline clicked");
+
+            const config = {
+                demoDir: document.getElementById('demoDir').value,
+                outputDir: document.getElementById('outputDir').value,
+                playerSteamId: document.getElementById('steamId').value,
+                selectedFile: selectedFile, // null=全部，否则为具体文件路径
+                rounds: document.getElementById('rounds').value.trim(),
+                dbUser: 'postgres',
+                dbPass: document.getElementById('dbPass').value,
+                speed: document.getElementById('speed').value,
+                framesPerWindow: document.getElementById('framesPerWindow').value
+            };
+
+            await ipcRenderer.invoke('save-config', config);
+
+            if (selectedFile === null) {
+                window.appendLog("\n🚀 ========== 一键全流程启动 ==========\n");
+                window.appendLog(">>> 模式: 批量处理所有demo\n");
+                window.appendLog(">>> 流程: 逐个demo执行 [分析→录制→下一个]\n");
+                window.appendLog(">>> 提示: 可随时点击 '⛔ 终止所有任务' 停止\n");
+                window.appendLog("==========================================\n\n");
+            } else {
+                const fileName = selectedFile.split(/[\\/]/).pop();
+                window.appendLog(`\n🚀 ========== 一键全流程启动 ==========\n`);
+                window.appendLog(`>>> 模式: 单文件处理\n`);
+                window.appendLog(`>>> 文件: ${fileName}\n`);
+                window.appendLog(`>>> 流程: [分析→录制]\n`);
+                window.appendLog("==========================================\n\n");
+            }
+
+            ipcRenderer.send('start-full-pipeline', config);
+        };
+
+        window.startVisualize = function() {
+            const rounds = document.getElementById('rounds').value.trim();
+            const steamId = document.getElementById('steamId').value.trim();
+
+            if (!selectedFile || selectedFile === 'ALL') {
+                window.appendLog('\n[提示] 可视化只能针对单个文件。请先在左侧选择一个 Demo。\n');
+                return;
+            }
+            if (!steamId) {
+                window.appendLog('\n[提示] 请填写要可视化的玩家 Steam ID。\n');
+                return;
+            }
+            if (!rounds) {
+                window.appendLog('\n[提示] 请填写具体的一个回合号 (例如: 1)。\n');
+                return;
+            }
+
+            const config = {
+                outputDir: document.getElementById('outputDir').value,
+                selectedFile: selectedFile,
+                playerSteamId: steamId,
+                rounds: rounds
+            };
+
+            window.appendLog(`\n>>> 正在启动可视化工具...\n`);
+            ipcRenderer.send('start-visualization', config);
+        };
+
+        window.showToast = function(text) {
+            const toast = document.getElementById('toast');
+            toast.innerText = text;
+            toast.style.opacity = '1';
+            setTimeout(() => toast.style.opacity = '0', 2000);
+        };
+
+        window.copyToClipboard = async function(text) {
+            try {
+                // 如果格式是 "Name [ID]"，我们只复制 ID 到剪贴板，还是复制整行？
+                // 通常用户点击是为了填入，所以最好提取 ID。
+                // 1. 尝试提取 [12345] 中的 ID
+                let idToFill = text;
+                const bracketMatch = text.match(/\[(\d{17})\]/);
+                if (bracketMatch) {
+                    idToFill = bracketMatch[1];
+                }
+
+                // 复制到剪贴板
+                await navigator.clipboard.writeText(idToFill);
+
+                // 2. 尝试提取 Steam ID (通常是 17 位数字)
+                const steamIdMatch = idToFill.match(/\d{17}/);
+                if (steamIdMatch) {
+                    document.getElementById('steamId').value = steamIdMatch[0];
+                    window.showToast(`已填入 ID: ${steamIdMatch[0]}`);
+                } else {
+                    window.showToast(`已复制文本`);
+                }
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+            }
+        };
+
+        // 右键打开Demo文件夹
+        window.openDemoFolder = async function(folderPath) {
+            console.log('[openDemoFolder] Called with path:', folderPath);
+            window.appendLog(`\n[打开文件夹] ${folderPath}\n`);
+            try {
+                const result = await ipcRenderer.invoke('open-folder', folderPath);
+                console.log('[openDemoFolder] Result:', result);
+                if (result && result.error) {
+                    window.showToast('打开失败: ' + result.error);
+                } else {
+                    window.showToast('正在打开文件夹...');
+                }
+            } catch (err) {
+                console.error('Failed to open folder:', err);
+                window.showToast('打开文件夹失败: ' + err.message);
+            }
+        };
+
+        window.refreshProgress = async function() {
+            const outputDir = document.getElementById('outputDir').value;
+            if (!outputDir) {
+                window.appendLog('\n[提示] 请先设置输出主目录\n');
+                return;
+            }
+
+            const btn = document.getElementById('refreshProgressBtn');
+            const originalText = btn.innerText;
+            btn.innerText = '刷新中...';
+            btn.disabled = true;
+
+            try {
+                // 如果选择了全部文件，刷新所有
+                if (selectedFile === null) {
+                    const demoDir = document.getElementById('demoDir').value;
+                    if (!demoDir) {
+                        window.appendLog('\n[提示] 请先选择 Demo 目录\n');
+                        return;
+                    }
+                    const glob = require('fast-glob');
+                    const demos = await glob('**/*.dem', { cwd: demoDir, absolute: true });
+
+                    for (const demoPath of demos) {
+                        await window.checkSingleDemoProgress(demoPath, outputDir);
+                    }
+                    window.appendLog('\n>>> 已刷新所有 demo 的录制进度\n');
+                } else {
+                    // 只刷新选中的单个 demo
+                    await window.checkSingleDemoProgress(selectedFile, outputDir);
+                    window.appendLog('\n>>> 已刷新当前 demo 的录制进度\n');
+                }
+            } catch (err) {
+                window.appendLog(`\n[错误] 刷新失败: ${err.message}\n`);
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        };
+
+        window.checkSingleDemoProgress = async function(demoPath, outputDir) {
+            const result = await ipcRenderer.invoke('check-recording-progress', {
+                demoPath,
+                outputDir,
+                dbUser: 'postgres',
+                dbPass: document.getElementById('dbPass').value
+            });
+
+            if (!result) return;
+
+            // 处理错误情况
+            if (result.error) {
+                window.appendLog(`\n[警告] ${path.basename(demoPath)}: ${result.error}\n`);
+                return;
+            }
+
+            // 更新该 demo 的玩家进度显示
+            const items = document.querySelectorAll('.file-item');
+            for (let item of items) {
+                if (item.dataset.path === demoPath) {
+                    const playerEl = item.querySelector('.file-players');
+                    if (result.players && result.players.length > 0) {
+                        playerEl.innerHTML = result.players.map(p => {
+                            const progressClass = p.completedRounds === p.totalRounds ? 'complete' :
+                                                  p.completedRounds > 0 ? 'partial' : 'none';
+                            const progressText = `${p.totalRounds}/${p.completedRounds}`;
+
+                            // 构建未完成回合的提示文本
+                            let tooltip = '';
+                            if (p.incompleteRounds && p.incompleteRounds.length > 0) {
+                                tooltip = `未完成: Round ${p.incompleteRounds.join(', ')}`;
+                            } else {
+                                tooltip = '全部完成';
+                            }
+
+                            // 右键打开文件夹
+                            const demoName = path.basename(demoPath, '.dem');
+                            const folderPath = path.join(outputDir, demoName);
+
+                            return `<div onclick="window.copyToClipboard(this.innerText)"
+                                         oncontextmenu="window.openDemoFolder('${folderPath.replace(/\\/g, '\\\\')}'); return false;"
+                                         style="cursor: pointer;"
+                                         title="左键复制ID，右键打开文件夹">
+                                ${p.name} [${p.steamId}]
+                                <span class="player-progress ${progressClass}" title="${tooltip}">${progressText}</span>
+                            </div>`;
+                        }).join('');
+                        playerEl.classList.add('visible');
+                    }
+                    break;
+                }
+            }
+        };
+
+        // 新增：浏览Demo的所有训练数据
+        let currentBrowseState = null; // { demoPath, folders: [], currentIndex: 0 }
+
+        window.browseDemoVisualization = async function() {
+            if (!selectedFile || selectedFile === 'ALL') {
+                window.appendLog('\n[提示] 请先在左侧选择一个 Demo 文件\n');
+                return;
+            }
+
+            const outputDir = document.getElementById('outputDir').value;
+            if (!outputDir) {
+                window.appendLog('\n[提示] 请先设置输出主目录\n');
+                return;
+            }
+
+            window.appendLog(`\n>>> 正在扫描 Demo 的所有训练数据...\n`);
+
+            // 调用IPC获取该demo的所有训练数据文件夹
+            const result = await ipcRenderer.invoke('get-demo-folders', {
+                demoPath: selectedFile,
+                outputDir: outputDir,
+                dbUser: 'postgres',
+                dbPass: document.getElementById('dbPass').value
+            });
+
+            if (result.error) {
+                window.appendLog(`[错误] ${result.error}\n`);
+                return;
+            }
+
+            if (!result.folders || result.folders.length === 0) {
+                window.appendLog('[提示] 未找到该 Demo 的训练数据\n');
+                return;
+            }
+
+            // 保存浏览状态
+            currentBrowseState = {
+                demoPath: selectedFile,
+                folders: result.folders,
+                currentIndex: 0
+            };
+
+            window.appendLog(`找到 ${result.folders.length} 个训练数据文件夹\n`);
+            window.appendLog(`使用左右方向键切换，按T标记，自动跳过已标记\n`);
+
+            // 启动第一个未标记的
+            window.visualizeBrowseFolder(0, true); // 启用跳过已标记
+        };
+
+        // 新增：检查data.json是否已标记（包括正确和错误）
+        window.checkIfMarked = function(folderPath) {
+            const fs = require('fs');
+            const path = require('path');
+            const dataJsonPath = path.join(folderPath, 'data.json');
+
+            try {
+                if (fs.existsSync(dataJsonPath)) {
+                    const data = JSON.parse(fs.readFileSync(dataJsonPath, 'utf8'));
+                    // 新格式：检查 review_status
+                    if (data.review_status === 'approved' || data.review_status === 'rejected') {
+                        return true;
+                    }
+                    // 旧格式兼容：检查是否有任何标记（states: true 或 error: true）
+                    if (data.states === true || data.error === true) {
+                        return true;
+                    }
+                }
+            } catch (err) {
+                console.error('Failed to check mark:', err);
+            }
+            return false;
+        };
+
+        // 新增：查找下一个未标记的文件夹
+        window.findNextUnmarked = function(startIndex, direction) {
+            if (!currentBrowseState) return -1;
+
+            const total = currentBrowseState.folders.length;
+            let index = startIndex;
+
+            for (let i = 0; i < total; i++) {
+                index += direction;
+
+                // 循环边界
+                if (index >= total) index = 0;
+                if (index < 0) index = total - 1;
+
+                const folder = currentBrowseState.folders[index];
+                if (!window.checkIfMarked(folder.path)) {
+                    return index;
+                }
+            }
+
+            return -1; // 所有都已标记
+        };
+
+        window.visualizeBrowseFolder = function(index, skipMarked = false) {
+            if (!currentBrowseState || index < 0 || index >= currentBrowseState.folders.length) {
+                return;
+            }
+
+            // 如果需要跳过已标记的，查找下一个未标记的
+            if (skipMarked) {
+                const folder = currentBrowseState.folders[index];
+                if (window.checkIfMarked(folder.path)) {
+                    window.appendLog(`[跳过] ${folder.name} (已标记)\n`);
+                    // 查找下一个未标记的
+                    const nextIndex = window.findNextUnmarked(index - 1, 1);
+                    if (nextIndex === -1) {
+                        window.appendLog('[提示] 所有数据都已标记\n');
+                        currentBrowseState = null;
+                        return;
+                    }
+                    index = nextIndex;
+                }
+            }
+
+            currentBrowseState.currentIndex = index;
+            const folder = currentBrowseState.folders[index];
+
+            window.appendLog(`\n>>> [${index + 1}/${currentBrowseState.folders.length}] 播放: ${folder.name}\n`);
+            window.visualizeFolder(folder.path);
+        };
+
+        window.onload = async () => {
+            console.log("Window loaded");
+            const savedConfig = await ipcRenderer.invoke('load-config');
+            if (savedConfig) {
+                document.getElementById('demoDir').value = savedConfig.demoDir || '';
+                if (savedConfig.demoDir) window.refreshDemoList(savedConfig.demoDir);
+
+                document.getElementById('outputDir').value = savedConfig.outputDir || '';
+
+                document.getElementById('steamId').value = savedConfig.playerSteamId || '';
+                document.getElementById('speed').value = savedConfig.speed || '8';
+                document.getElementById('framesPerWindow').value = savedConfig.framesPerWindow || '10';
+                document.getElementById('dbPass').value = savedConfig.dbPass || '88683139';
+            }
+
+            // 自动加载数据库状态
+            window.refreshDatabaseStatus(true);
+
+            // 启动自动刷新定时器
+            setTimeout(() => {
+                window.toggleAutoRefresh();
+            }, 1000); // 延迟1秒启动，避免初始化时的重复查询
+
+            // 绑定自动刷新复选框事件
+            document.getElementById('autoRefreshDb').addEventListener('change', window.toggleAutoRefresh);
+
+            // 页面卸载时清除定时器
+            window.addEventListener('beforeunload', () => {
+                if (dbAutoRefreshTimer) {
+                    clearInterval(dbAutoRefreshTimer);
+                    dbAutoRefreshTimer = null;
+                }
+            });
+        };
+
+        // 刷新数据库状态
+        window.refreshDatabaseStatus = async function(showButtonFeedback = false) {
+            const dbPass = document.getElementById('dbPass').value;
+            if (!dbPass) {
+                return; // 静默失败，不显示提示
+            }
+
+            const btn = document.getElementById('refreshDbBtn');
+            const originalText = btn.innerText;
+
+            // 只有手动点击时才显示按钮反馈
+            if (showButtonFeedback) {
+                btn.innerText = '⏳';
+                btn.disabled = true;
+            }
+
+            try {
+                const status = await ipcRenderer.invoke('get-database-status', {
+                    dbUser: 'postgres',
+                    dbPass: dbPass
+                });
+
+                if (status.error) {
+                    // 连接失败
+                    document.getElementById('dbConnectionStatus').className = 'db-connection-status disconnected';
+                    document.getElementById('dbDemosCount').innerText = '-';
+                    document.getElementById('dbMatchesCount').innerText = '-';
+                    document.getElementById('dbWindowsCount').innerText = '-';
+                    document.getElementById('dbDemoList').innerHTML = `<div style="padding: 20px; color: #666; text-align: center; font-size: 11px;">连接失败</div>`;
+                } else {
+                    // 连接成功
+                    let statusClass = 'db-connection-status connected';
+                    // 保留自动刷新动画
+                    if (document.getElementById('autoRefreshDb').checked) {
+                        statusClass += ' auto-refresh';
+                    }
+                    document.getElementById('dbConnectionStatus').className = statusClass;
+
+                    // 更新统计数字
+                    document.getElementById('dbDemosCount').innerText = status.demosCount || 0;
+                    document.getElementById('dbMatchesCount').innerText = status.matchesCount || 0;
+                    document.getElementById('dbWindowsCount').innerText = status.windowsCount || 0;
+
+                    // 更新 Demo 列表
+                    const demoListEl = document.getElementById('dbDemoList');
+                    if (status.demos && status.demos.length > 0) {
+                        demoListEl.innerHTML = status.demos.map(demo => {
+                            const shortChecksum = demo.checksum ? demo.checksum.substring(0, 16) + '...' : 'N/A';
+                            const windowsCount = demo.windows_count || 0;
+                            const windowsColor = windowsCount > 0 ? 'var(--primary)' : '#666';
+
+                            return `
+                                <div class="db-demo-item">
+                                    <div class="db-demo-name">${demo.name || 'Unknown'}</div>
+                                    <div class="db-demo-checksum">Checksum: ${shortChecksum}</div>
+                                    <div class="db-demo-windows" style="color: ${windowsColor};">
+                                        📊 Training Windows: ${windowsCount}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('');
+                    } else {
+                        demoListEl.innerHTML = '<div style="padding: 20px; color: #666; text-align: center;">暂无数据</div>';
+                    }
+                }
+            } catch (err) {
+                document.getElementById('dbConnectionStatus').className = 'db-connection-status disconnected';
+                console.error('Failed to refresh database status:', err);
+            } finally {
+                if (showButtonFeedback) {
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                }
+            }
+        };
+
+        // 启动/停止自动刷新
+        window.toggleAutoRefresh = function() {
+            const autoRefreshCheckbox = document.getElementById('autoRefreshDb');
+            const statusIndicator = document.getElementById('dbConnectionStatus');
+
+            if (autoRefreshCheckbox.checked) {
+                // 启动自动刷新
+                if (!dbAutoRefreshTimer) {
+                    dbAutoRefreshTimer = setInterval(() => {
+                        window.refreshDatabaseStatus();
+                    }, 3000); // 每3秒刷新一次
+
+                    // 添加脉冲动画
+                    statusIndicator.classList.add('auto-refresh');
+                    console.log('[DB] Auto-refresh enabled (3s interval)');
+                }
+            } else {
+                // 停止自动刷新
+                if (dbAutoRefreshTimer) {
+                    clearInterval(dbAutoRefreshTimer);
+                    dbAutoRefreshTimer = null;
+
+                    // 移除脉冲动画
+                    statusIndicator.classList.remove('auto-refresh');
+                    console.log('[DB] Auto-refresh disabled');
+                }
+            }
+        };
+
+        // 新增:键盘监听 - 左右方向键切换
+        document.addEventListener('keydown', function(e) {
+            if (!currentBrowseState) return;
+
+            if (e.key === 'ArrowLeft') {
+                // 上一个
+                e.preventDefault();
+                const newIndex = currentBrowseState.currentIndex - 1;
+                if (newIndex >= 0) {
+                    window.visualizeBrowseFolder(newIndex);
+                } else {
+                    window.appendLog('[提示] 已经是第一个\n');
+                }
+            } else if (e.key === 'ArrowRight') {
+                // 下一个
+                e.preventDefault();
+                const newIndex = currentBrowseState.currentIndex + 1;
+                if (newIndex < currentBrowseState.folders.length) {
+                    window.visualizeBrowseFolder(newIndex);
+                } else {
+                    window.appendLog('[提示] 已经是最后一个\n');
+                }
+            }
+        });
+
+        ipcRenderer.on('process-log', (e, d) => window.appendLog(d));
+        ipcRenderer.on('process-complete', (e, c) => {
+            document.getElementById('analyzeBtn').disabled = false;
+            document.getElementById('startBtn').disabled = false;
+            window.appendLog("\n>>> 任务结束。");
+
+            // 自动刷新数据库状态（静默）
+            setTimeout(() => window.refreshDatabaseStatus(), 500);
+        });
+
+        // 新增：监听单个文件状态更新
+        ipcRenderer.on('file-status-update', (e, { file, status, players, rounds }) => {
+            // Find item by path matches
+            const items = document.querySelectorAll('.file-item');
+            for (let item of items) {
+                if (item.dataset.path === file) {
+                    if (status) {
+                        let statusHtml = status;
+                        if (rounds) {
+                            statusHtml += ` <span style="background:#333; color:var(--primary); padding:1px 5px; border-radius:3px; margin-left:5px; font-weight:bold;">${rounds} 回合</span>`;
+                        }
+                        item.querySelector('.file-status').innerHTML = statusHtml;
+                    }
+                    if (players && players.length > 0) {
+                        const playerEl = item.querySelector('.file-players');
+                        playerEl.innerHTML = players.map(p => `<div onclick="window.copyToClipboard(this.innerText)">${p}</div>`).join('');
+                        playerEl.classList.add('visible');
+                    }
+                    break;
+                }
+            }
+
+            // 事件驱动：文件状态更新时刷新数据库（静默）
+            window.refreshDatabaseStatus();
+        });
+
+        // 新增：监听可视化删除事件
+        ipcRenderer.on('visualization-deleted', () => {
+            window.appendLog('[GUI] 已删除当前数据\n');
+
+            // 如果在浏览模式下，自动跳到下一个（跳过已标记）
+            if (currentBrowseState) {
+                const nextIndex = currentBrowseState.currentIndex + 1;
+                if (nextIndex < currentBrowseState.folders.length) {
+                    window.appendLog(`>>> 自动跳转到下一个\n`);
+                    // 稍微延迟一下，让Python进程完全退出
+                    setTimeout(() => {
+                        window.visualizeBrowseFolder(nextIndex, true); // 启用跳过已标记
+                    }, 1000);
+                } else {
+                    window.appendLog('[提示] 已经是最后一个，浏览结束\n');
+                    currentBrowseState = null;
+                }
+            }
+        });
+
+        // 新增：监听可视化标记事件
+        ipcRenderer.on('visualization-marked', () => {
+            window.appendLog('[GUI] 已标记当前数据为合格 (review_status: approved)\n');
+
+            // 自动跳到下一个未标记的
+            if (currentBrowseState) {
+                const nextIndex = currentBrowseState.currentIndex + 1;
+                if (nextIndex < currentBrowseState.folders.length) {
+                    setTimeout(() => {
+                        window.visualizeBrowseFolder(nextIndex, true); // 启用跳过已标记
+                    }, 500);
+                } else {
+                    window.appendLog('[提示] 已经是最后一个，浏览结束\n');
+                    currentBrowseState = null;
+                }
+            }
+        });
+
+        // 新增：监听可视化错误标记事件
+        ipcRenderer.on('visualization-error-marked', () => {
+            window.appendLog('[GUI] 已标记当前数据为错误 (review_status: rejected)\n');
+
+            // 自动跳到下一个未标记的
+            if (currentBrowseState) {
+                const nextIndex = currentBrowseState.currentIndex + 1;
+                if (nextIndex < currentBrowseState.folders.length) {
+                    setTimeout(() => {
+                        window.visualizeBrowseFolder(nextIndex, true); // 启用跳过已标记
+                    }, 500);
+                } else {
+                    window.appendLog('[提示] 已经是最后一个，浏览结束\n');
+                    currentBrowseState = null;
+                }
+            }
+        });
+
+        // 新增：监听可视化下一个事件
+        ipcRenderer.on('visualization-next', () => {
+            if (currentBrowseState) {
+                const nextIndex = currentBrowseState.currentIndex + 1;
+                if (nextIndex < currentBrowseState.folders.length) {
+                    setTimeout(() => {
+                        window.visualizeBrowseFolder(nextIndex, true); // 启用跳过已标记
+                    }, 500);
+                } else {
+                    window.appendLog('[提示] 已经是最后一个\n');
+                }
+            }
+        });
+
+        // 新增：监听可视化上一个事件
+        ipcRenderer.on('visualization-prev', () => {
+            if (currentBrowseState) {
+                const prevIndex = currentBrowseState.currentIndex - 1;
+                if (prevIndex >= 0) {
+                    setTimeout(() => {
+                        window.visualizeBrowseFolder(prevIndex, true); // 启用跳过已标记
+                    }, 500);
+                } else {
+                    window.appendLog('[提示] 已经是第一个\n');
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

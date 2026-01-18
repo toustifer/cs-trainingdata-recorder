@@ -1,0 +1,1 @@
+{"version":3,"file":"faceit-forbidden-error.js","sourceRoot":"","sources":["faceit-forbidden-error.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AACnD,OAAO,EAAE,cAAc,EAAE,MAAM,oBAAoB,CAAC;AAEpD,MAAM,OAAO,oBAAqB,SAAQ,cAAc;IACtD;QACE,KAAK,EAAE,CAAC;QACR,IAAI,CAAC,IAAI,GAAG,SAAS,CAAC,kBAAkB,CAAC;QACzC,IAAI,CAAC,OAAO,GAAG,2BAA2B,CAAC;IAC7C,CAAC;CACF"}

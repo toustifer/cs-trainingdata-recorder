@@ -1,0 +1,1 @@
+{"version":3,"file":"invalid-share-code.js","sourceRoot":"","sources":["invalid-share-code.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,6BAA6B,CAAC;AACxD,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AAEnD,MAAM,OAAO,gBAAiB,SAAQ,SAAS;IAC7C,YAAmB,SAAiB;QAClC,KAAK,CAAC,SAAS,CAAC,gBAAgB,CAAC,CAAC;QAClC,IAAI,CAAC,OAAO,GAAG,sBAAsB,SAAS,EAAE,CAAC;IACnD,CAAC;CACF"}

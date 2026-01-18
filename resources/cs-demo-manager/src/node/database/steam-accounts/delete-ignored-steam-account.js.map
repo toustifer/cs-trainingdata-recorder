@@ -1,0 +1,1 @@
+{"version":3,"file":"delete-ignored-steam-account.js","sourceRoot":"","sources":["delete-ignored-steam-account.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,EAAE,EAAE,MAAM,6BAA6B,CAAC;AAEjD,MAAM,CAAC,KAAK,UAAU,yBAAyB,CAAC,OAAe;IAC7D,MAAM,EAAE,CAAC,UAAU,CAAC,wBAAwB,CAAC,CAAC,KAAK,CAAC,UAAU,EAAE,GAAG,EAAE,OAAO,CAAC,CAAC,OAAO,EAAE,CAAC;AAC1F,CAAC"}

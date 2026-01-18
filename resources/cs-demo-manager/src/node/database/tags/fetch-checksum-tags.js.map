@@ -1,0 +1,1 @@
+{"version":3,"file":"fetch-checksum-tags.js","sourceRoot":"","sources":["fetch-checksum-tags.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,EAAE,EAAE,MAAM,6BAA6B,CAAC;AAGjD,MAAM,CAAC,KAAK,UAAU,iBAAiB;IACrC,MAAM,IAAI,GAAqB,MAAM,EAAE,CAAC,UAAU,CAAC,eAAe,CAAC,CAAC,SAAS,EAAE,CAAC,OAAO,EAAE,CAAC;IAE1F,OAAO,IAAI,CAAC;AACd,CAAC"}

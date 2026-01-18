@@ -1,0 +1,1 @@
+{"version":3,"file":"steam-api-forbidden-error.js","sourceRoot":"","sources":["steam-api-forbidden-error.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AACnD,OAAO,EAAE,aAAa,EAAE,MAAM,kBAAkB,CAAC;AAEjD,MAAM,OAAO,sBAAuB,SAAQ,aAAa;IACvD;QACE,KAAK,EAAE,CAAC;QACR,IAAI,CAAC,IAAI,GAAG,SAAS,CAAC,iBAAiB,CAAC;QACxC,IAAI,CAAC,OAAO,GAAG,sCAAsC,CAAC;IACxD,CAAC;CACF"}

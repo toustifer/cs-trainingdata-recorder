@@ -1,0 +1,24 @@
+import { createAction } from '@reduxjs/toolkit';
+export const searchEventChanged = createAction('search/searchEventChanged');
+export const playerSelected = createAction('search/playerSelected');
+export const playerRemoved = createAction('search/playerRemoved');
+export const victimSelected = createAction('search/victimSelected');
+export const victimRemoved = createAction('search/victimRemoved');
+export const mapSelected = createAction('search/mapSelected');
+export const mapRemoved = createAction('search/mapRemoved');
+export const demoSourcesChanged = createAction('search/sourcesChanged');
+export const roundTagIdsChanged = createAction('search/roundTagIdsChanged');
+export const matchTagIdsChanged = createAction('search/matchTagIdsChanged');
+export const weaponNamesChanged = createAction('search/weaponNamesChanged');
+export const headshotChanged = createAction('search/headshotChanged');
+export const noScopeChanged = createAction('search/noScopeChanged');
+export const wallbangChanged = createAction('search/wallbangChanged');
+export const jumpChanged = createAction('search/jumpChanged');
+export const throughSmokeChanged = createAction('search/throughSmokeChanged');
+export const teamKillChanged = createAction('search/teamKillChanged');
+export const collateralKillChanged = createAction('search/collateralKillChanged');
+export const periodChanged = createAction('search/periodChanged');
+export const searchStart = createAction('search/searchStart');
+export const searchSuccess = createAction('search/searchSuccess');
+export const searchError = createAction('search/searchError');
+//# sourceMappingURL=search-actions.js.map

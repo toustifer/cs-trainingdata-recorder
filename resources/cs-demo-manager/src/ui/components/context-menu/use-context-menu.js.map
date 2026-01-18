@@ -1,0 +1,1 @@
+{"version":3,"file":"use-context-menu.js","sourceRoot":"","sources":["use-context-menu.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,OAAO,CAAC;AACnC,OAAO,EAAE,kBAAkB,EAAE,MAAM,yBAAyB,CAAC;AAE7D,MAAM,UAAU,cAAc;IAC5B,MAAM,WAAW,GAAG,UAAU,CAAC,kBAAkB,CAAC,CAAC;IAEnD,OAAO,WAAW,CAAC;AACrB,CAAC"}

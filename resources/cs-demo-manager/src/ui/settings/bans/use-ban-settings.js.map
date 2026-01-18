@@ -1,0 +1,1 @@
+{"version":3,"file":"use-ban-settings.js","sourceRoot":"","sources":["use-ban-settings.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,eAAe,EAAE,MAAM,qCAAqC,CAAC;AACtE,OAAO,EAAE,WAAW,EAAE,MAAM,+BAA+B,CAAC;AAE5D,MAAM,UAAU,cAAc;IAC5B,MAAM,QAAQ,GAAG,WAAW,EAAE,CAAC;IAE/B,OAAO,QAAQ,CAAC,GAAG,IAAI,eAAe,CAAC,GAAG,CAAC;AAC7C,CAAC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"steam-restart-required.js","sourceRoot":"","sources":["steam-restart-required.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,6BAA6B,CAAC;AACxD,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AAEnD,MAAM,OAAO,oBAAqB,SAAQ,SAAS;IACjD;QACE,KAAK,CAAC,SAAS,CAAC,0BAA0B,CAAC,CAAC;QAC5C,IAAI,CAAC,OAAO,GAAG,wBAAwB,CAAC;IAC1C,CAAC;CACF"}

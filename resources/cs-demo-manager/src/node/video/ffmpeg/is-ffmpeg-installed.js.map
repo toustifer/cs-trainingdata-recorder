@@ -1,0 +1,1 @@
+{"version":3,"file":"is-ffmpeg-installed.js","sourceRoot":"","sources":["is-ffmpeg-installed.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,MAAM,UAAU,CAAC;AAC1B,OAAO,EAAE,uBAAuB,EAAE,MAAM,mBAAmB,CAAC;AAE5D,MAAM,CAAC,KAAK,UAAU,iBAAiB;IACrC,MAAM,oBAAoB,GAAG,MAAM,uBAAuB,EAAE,CAAC;IAC7D,MAAM,sBAAsB,GAAG,MAAM,EAAE,CAAC,UAAU,CAAC,oBAAoB,CAAC,CAAC;IAEzE,OAAO,sBAAsB,CAAC;AAChC,CAAC"}

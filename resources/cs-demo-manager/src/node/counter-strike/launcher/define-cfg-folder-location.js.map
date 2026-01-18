@@ -1,0 +1,1 @@
+{"version":3,"file":"define-cfg-folder-location.js","sourceRoot":"","sources":["define-cfg-folder-location.ts"],"names":[],"mappings":"AAAA,OAAO,IAAI,MAAM,WAAW,CAAC;AAC7B,OAAO,EAAE,gBAAgB,EAAE,MAAM,0CAA0C,CAAC;AAE5E,MAAM,UAAU,uBAAuB;IACrC,oGAAoG;IACpG,oFAAoF;IACpF,OAAO,CAAC,GAAG,CAAC,YAAY,GAAG,IAAI,CAAC,IAAI,CAAC,gBAAgB,EAAE,EAAE,KAAK,CAAC,CAAC;AAClE,CAAC"}

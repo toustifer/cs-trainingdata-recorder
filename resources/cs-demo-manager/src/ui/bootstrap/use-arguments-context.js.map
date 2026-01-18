@@ -1,0 +1,1 @@
+{"version":3,"file":"use-arguments-context.js","sourceRoot":"","sources":["use-arguments-context.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,OAAO,CAAC;AACnC,OAAO,EAAE,gBAAgB,EAAE,MAAM,sBAAsB,CAAC;AAExD,MAAM,UAAU,mBAAmB;IACjC,MAAM,OAAO,GAAG,UAAU,CAAC,gBAAgB,CAAC,CAAC;IAE7C,OAAO,OAAO,CAAC;AACjB,CAAC"}

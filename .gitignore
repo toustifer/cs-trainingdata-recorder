@@ -1,0 +1,40 @@
+# Node modules
+node_modules/
+resources/app/node_modules/
+resources/app/out/node_modules/
+
+# Claude Code
+.claude/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+nul
+
+# Build artifacts (if any)
+dist/
+build/
+
+# Electron compiled binaries (too large for GitHub, should be in Release)
+*.exe
+*.dll
+*.node
+*.pak
+*.dat
+*.bin
+
+# Backup files
+*.backup
+*.asar.backup
+
+# User settings (optional - 可以根据需要调整)
+# resources/app/settings.json

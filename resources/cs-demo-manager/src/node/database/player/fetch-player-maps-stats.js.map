@@ -1,0 +1,1 @@
+{"version":3,"file":"fetch-player-maps-stats.js","sourceRoot":"","sources":["fetch-player-maps-stats.ts"],"names":[],"mappings":"AAAA,OAAO,EAAqB,MAAM,8BAA8B,CAAC;AAEjE,OAAO,EAAE,qBAAqB,EAAE,MAAM,qCAAqC,CAAC;AAE5E,MAAM,UAAU,oBAAoB,CAAC,OAAe,EAAE,OAAsB;IAC1E,OAAO,qBAAqB,CAAC,CAAC,OAAO,CAAC,EAAE,OAAO,CAAC,CAAC;AACnD,CAAC"}

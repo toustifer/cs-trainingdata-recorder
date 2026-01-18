@@ -1,0 +1,1 @@
+{"version":3,"file":"recording-output.js","sourceRoot":"","sources":["recording-output.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,MAAM,eAAe,GAAG;IAC7B,MAAM,EAAE,QAAQ;IAChB,cAAc,EAAE,kBAAkB;IAClC,KAAK,EAAE,OAAO;CACN,CAAC;AAIX,MAAM,UAAU,sBAAsB,CAAC,KAAa;IAClD,OAAO,MAAM,CAAC,MAAM,CAAC,eAAe,CAAC,CAAC,QAAQ,CAAC,KAAwB,CAAC,CAAC;AAC3E,CAAC"}

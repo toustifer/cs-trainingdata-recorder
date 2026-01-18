@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 10,
+  "autoDownloadUpdates": true,
+  "database": {
+    "hostname": "127.0.0.1",
+    "port": 5432,
+    "username": "postgres",
+    "password": "your_database_password",
+    "database": "csdm"
+  },
+  "folders": [
+    {
+      "path": "F:\\your\\path\\to\\csgo\\folder",
+      "includeSubFolders": false
+    }
+  ],
+  "playback": {
+    "width": 1024,
+    "height": 768,
+    "fullscreen": false,
+    "useCustomHighlights": true,
+    "useCustomLowlights": true,
+    "customCs2LocationEnabled": true,
+    "cs2ExecutablePath": "F:\\Program Files (x86)\\Steam\\steamapps\\common\\Counter-Strike Global Offensive\\game\\bin\\win64\\cs2.exe"
+  },
+  "video": {
+    "recordingSystem": "HLAE",
+    "recordingOutput": "video",
+    "closeGameAfterRecording": true,
+    "concatenateSequences": false,
+    "showXRay": false,
+    "showAssists": false,
+    "showOnlyDeathNotices": true,
+    "deathNoticesDuration": 5,
+    "playerVoicesEnabled": false,
+    "recordAudio": false,
+    "encoderSoftware": "FFmpeg",
+    "ffmpegSettings": {
+      "audioBitrate": 256,
+      "constantRateFactor": 23,
+      "customLocationEnabled": true,
+      "customExecutableLocation": "F:\\ffmpeg\\bin\\ffmpeg.exe",
+      "videoContainer": "avi",
+      "videoCodec": "libx264",
+      "audioCodec": "libmp3lame",
+      "inputParameters": "",
+      "outputParameters": ""
+    },
+    "framerate": 25,
+    "height": 480,
+    "width": 640,
+    "outputFolderPath": "F:\\your\\path\\to\\output",
+    "hlae": {
+      "customLocationEnabled": false,
+      "customExecutableLocation": "",
+      "configFolderEnabled": false,
+      "configFolderPath": ""
+    }
+  }
+}

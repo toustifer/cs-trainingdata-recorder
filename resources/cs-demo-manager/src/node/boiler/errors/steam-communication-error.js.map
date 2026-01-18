@@ -1,0 +1,1 @@
+{"version":3,"file":"steam-communication-error.js","sourceRoot":"","sources":["steam-communication-error.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,6BAA6B,CAAC;AACxD,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AAEnD,MAAM,OAAO,uBAAwB,SAAQ,SAAS;IACpD;QACE,KAAK,CAAC,SAAS,CAAC,0BAA0B,CAAC,CAAC;QAC5C,IAAI,CAAC,OAAO,GAAG,uCAAuC,CAAC;IACzD,CAAC;CACF"}

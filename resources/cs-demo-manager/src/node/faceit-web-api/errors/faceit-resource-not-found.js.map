@@ -1,0 +1,1 @@
+{"version":3,"file":"faceit-resource-not-found.js","sourceRoot":"","sources":["faceit-resource-not-found.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AACnD,OAAO,EAAE,cAAc,EAAE,MAAM,oBAAoB,CAAC;AAEpD,MAAM,OAAO,sBAAuB,SAAQ,cAAc;IACxD;QACE,KAAK,EAAE,CAAC;QACR,IAAI,CAAC,IAAI,GAAG,SAAS,CAAC,yBAAyB,CAAC;QAChD,IAAI,CAAC,OAAO,GAAG,2BAA2B,CAAC;IAC7C,CAAC;CACF"}

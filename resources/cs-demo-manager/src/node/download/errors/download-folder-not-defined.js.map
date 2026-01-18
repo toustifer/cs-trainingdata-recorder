@@ -1,0 +1,1 @@
+{"version":3,"file":"download-folder-not-defined.js","sourceRoot":"","sources":["download-folder-not-defined.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,6BAA6B,CAAC;AACxD,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AAEnD,MAAM,OAAO,wBAAyB,SAAQ,SAAS;IACrD;QACE,KAAK,CAAC,SAAS,CAAC,wBAAwB,CAAC,CAAC;QAC1C,IAAI,CAAC,OAAO,GAAG,6BAA6B,CAAC;IAC/C,CAAC;CACF"}

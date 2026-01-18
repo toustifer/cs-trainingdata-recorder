@@ -1,0 +1,1 @@
+{"version":3,"file":"player-sequence-event.js","sourceRoot":"","sources":["player-sequence-event.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,MAAM,mBAAmB,GAAG;IACjC,KAAK,EAAE,OAAO;IACd,MAAM,EAAE,QAAQ;IAChB,MAAM,EAAE,QAAQ;CACR,CAAC;AAIX,MAAM,UAAU,0BAA0B,CAAC,KAAa;IACtD,OAAO,MAAM,CAAC,MAAM,CAAC,mBAAmB,CAAC,CAAC,QAAQ,CAAC,KAA4B,CAAC,CAAC;AACnF,CAAC"}

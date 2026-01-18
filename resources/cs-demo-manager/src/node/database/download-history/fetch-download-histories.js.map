@@ -1,0 +1,1 @@
+{"version":3,"file":"fetch-download-histories.js","sourceRoot":"","sources":["fetch-download-histories.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,EAAE,EAAE,MAAM,aAAa,CAAC;AAEjC,MAAM,CAAC,KAAK,UAAU,sBAAsB;IAC1C,MAAM,IAAI,GAAG,MAAM,EAAE,CAAC,UAAU,CAAC,kBAAkB,CAAC,CAAC,SAAS,EAAE,CAAC,OAAO,EAAE,CAAC;IAE3E,OAAO,IAAI,CAAC;AACd,CAAC"}

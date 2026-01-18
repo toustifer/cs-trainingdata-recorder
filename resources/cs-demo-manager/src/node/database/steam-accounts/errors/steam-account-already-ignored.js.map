@@ -1,0 +1,1 @@
+{"version":3,"file":"steam-account-already-ignored.js","sourceRoot":"","sources":["steam-account-already-ignored.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,6BAA6B,CAAC;AACxD,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AAEnD,MAAM,OAAO,0BAA2B,SAAQ,SAAS;IACvD;QACE,KAAK,CAAC,SAAS,CAAC,0BAA0B,CAAC,CAAC;QAC5C,IAAI,CAAC,OAAO,GAAG,kCAAkC,CAAC;IACpD,CAAC;CACF"}

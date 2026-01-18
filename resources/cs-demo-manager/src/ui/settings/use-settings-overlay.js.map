@@ -1,0 +1,1 @@
+{"version":3,"file":"use-settings-overlay.js","sourceRoot":"","sources":["use-settings-overlay.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,OAAO,CAAC;AAEnC,OAAO,EAAE,sBAAsB,EAAE,MAAM,6BAA6B,CAAC;AAErE,MAAM,UAAU,kBAAkB;IAChC,MAAM,eAAe,GAAG,UAAU,CAAC,sBAAsB,CAAC,CAAC;IAE3D,OAAO,eAAe,CAAC;AACzB,CAAC"}

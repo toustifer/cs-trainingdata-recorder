@@ -1,0 +1,1 @@
+{"version":3,"file":"no-sequences-found.js","sourceRoot":"","sources":["no-sequences-found.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,6BAA6B,CAAC;AACxD,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AAEnD,MAAM,OAAO,gBAAiB,SAAQ,SAAS;IAC7C;QACE,KAAK,CAAC,SAAS,CAAC,gBAAgB,CAAC,CAAC;QAClC,IAAI,CAAC,OAAO,GAAG,oBAAoB,CAAC;IACtC,CAAC;CACF"}

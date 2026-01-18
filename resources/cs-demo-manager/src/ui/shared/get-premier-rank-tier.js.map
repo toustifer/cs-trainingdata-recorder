@@ -1,0 +1,1 @@
+{"version":3,"file":"get-premier-rank-tier.js","sourceRoot":"","sources":["get-premier-rank-tier.ts"],"names":[],"mappings":"AAEA,MAAM,UAAU,kBAAkB,CAAC,IAAiB;IAClD,MAAM,cAAc,GAAG,IAAI,CAAC,KAAK,CAAC,IAAI,GAAG,MAAM,GAAG,CAAC,CAAC,CAAC;IACrD,MAAM,aAAa,GAAG,IAAI,CAAC,GAAG,CAAC,CAAC,EAAE,IAAI,CAAC,GAAG,CAAC,cAAc,EAAE,CAAC,CAAC,CAAC,CAAC;IAE/D,OAAO,aAAa,CAAC;AACvB,CAAC"}

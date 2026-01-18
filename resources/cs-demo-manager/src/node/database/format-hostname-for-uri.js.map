@@ -1,0 +1,1 @@
+{"version":3,"file":"format-hostname-for-uri.js","sourceRoot":"","sources":["format-hostname-for-uri.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,MAAM,EAAE,MAAM,UAAU,CAAC;AAElC,MAAM,UAAU,oBAAoB,CAAC,QAAgB;IACnD,IAAI,MAAM,CAAC,QAAQ,CAAC,IAAI,CAAC,QAAQ,CAAC,UAAU,CAAC,GAAG,CAAC,EAAE,CAAC;QAClD,OAAO,IAAI,QAAQ,GAAG,CAAC;IACzB,CAAC;IAED,OAAO,QAAQ,CAAC;AAClB,CAAC"}

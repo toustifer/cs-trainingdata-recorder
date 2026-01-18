@@ -1,0 +1,17 @@
+export function clutchRowToClutch(row) {
+    return {
+        id: row.id,
+        frame: row.frame,
+        matchChecksum: row.match_checksum,
+        roundNumber: row.round_number,
+        tick: row.tick,
+        clutcherName: row.clutcher_name,
+        clutcherSteamId: row.clutcher_steam_id,
+        won: row.won,
+        opponentCount: row.opponent_count,
+        side: row.side,
+        hasClutcherSurvived: row.has_clutcher_survived,
+        clutcherKillCount: row.clutcher_kill_count,
+    };
+}
+//# sourceMappingURL=clutch-row-to-clutch.js.map

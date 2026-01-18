@@ -1,0 +1,30 @@
+import React, { useRef } from 'react';
+import { useVirtualizer } from '@tanstack/react-virtual';
+import { lastArrayItem } from 'csdm/common/array/last-array-item';
+function estimateSize() {
+    return 58;
+}
+export function VirtualListResults({ items, renderItem }) {
+    const wrapperRef = useRef(null);
+    // eslint-disable-next-line react-hooks/incompatible-library
+    const { getVirtualItems, getTotalSize } = useVirtualizer({
+        count: items.length,
+        getScrollElement: () => {
+            return wrapperRef.current;
+        },
+        estimateSize,
+        overscan: 10,
+    });
+    const virtualItems = getVirtualItems();
+    const totalSize = getTotalSize();
+    const paddingTop = virtualItems.length > 0 ? virtualItems[0].start : 0;
+    const paddingBottom = virtualItems.length > 0 ? totalSize - lastArrayItem(virtualItems).end : 0;
+    const containerStyle = {
+        paddingTop: `${paddingTop}px`,
+        paddingBottom: `${paddingBottom}px`,
+    };
+    return (React.createElement("div", { className: "size-full overflow-y-auto pr-4", ref: wrapperRef }, wrapperRef.current && (React.createElement("div", { style: containerStyle, className: "flex flex-col gap-y-8" }, virtualItems.map((item) => {
+        return renderItem(items[item.index]);
+    })))));
+}
+//# sourceMappingURL=virtual-list-results.js.map

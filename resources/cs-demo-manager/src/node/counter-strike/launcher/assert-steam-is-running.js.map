@@ -1,0 +1,1 @@
+{"version":3,"file":"assert-steam-is-running.js","sourceRoot":"","sources":["assert-steam-is-running.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,cAAc,EAAE,MAAM,2CAA2C,CAAC;AAC3E,OAAO,EAAE,eAAe,EAAE,MAAM,4DAA4D,CAAC;AAE7F,MAAM,CAAC,KAAK,UAAU,oBAAoB;IACxC,MAAM,YAAY,GAAG,MAAM,cAAc,EAAE,CAAC;IAC5C,IAAI,CAAC,YAAY,EAAE,CAAC;QAClB,MAAM,IAAI,eAAe,EAAE,CAAC;IAC9B,CAAC;AACH,CAAC"}

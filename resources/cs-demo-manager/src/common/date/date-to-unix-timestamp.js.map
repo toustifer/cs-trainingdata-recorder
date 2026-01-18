@@ -1,0 +1,1 @@
+{"version":3,"file":"date-to-unix-timestamp.js","sourceRoot":"","sources":["date-to-unix-timestamp.ts"],"names":[],"mappings":"AAAA,MAAM,UAAU,mBAAmB,CAAC,IAAU;IAC5C,OAAO,MAAM,CAAC,QAAQ,CAAC,CAAC,IAAI,CAAC,OAAO,EAAE,GAAG,IAAI,CAAC,CAAC,OAAO,CAAC,CAAC,CAAC,CAAC,CAAC;AAC7D,CAAC"}

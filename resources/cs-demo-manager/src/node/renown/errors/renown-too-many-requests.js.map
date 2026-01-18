@@ -1,0 +1,1 @@
+{"version":3,"file":"renown-too-many-requests.js","sourceRoot":"","sources":["renown-too-many-requests.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AACnD,OAAO,EAAE,cAAc,EAAE,MAAM,oBAAoB,CAAC;AAEpD,MAAM,OAAO,qBAAsB,SAAQ,cAAc;IACvD;QACE,KAAK,EAAE,CAAC;QACR,IAAI,CAAC,IAAI,GAAG,SAAS,CAAC,qBAAqB,CAAC;QAC5C,IAAI,CAAC,OAAO,GAAG,uCAAuC,CAAC;IACzD,CAAC;CACF"}

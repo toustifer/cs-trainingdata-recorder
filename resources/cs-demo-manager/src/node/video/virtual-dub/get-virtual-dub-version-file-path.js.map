@@ -1,0 +1,1 @@
+{"version":3,"file":"get-virtual-dub-version-file-path.js","sourceRoot":"","sources":["get-virtual-dub-version-file-path.ts"],"names":[],"mappings":"AAAA,OAAO,IAAI,MAAM,WAAW,CAAC;AAC7B,OAAO,EAAE,uBAAuB,EAAE,MAAM,+BAA+B,CAAC;AAExE,MAAM,UAAU,4BAA4B;IAC1C,MAAM,oBAAoB,GAAG,uBAAuB,EAAE,CAAC;IACvD,OAAO,IAAI,CAAC,IAAI,CAAC,oBAAoB,EAAE,SAAS,CAAC,CAAC;AACpD,CAAC"}

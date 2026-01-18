@@ -1,0 +1,1 @@
+{"version":3,"file":"video-container.js","sourceRoot":"","sources":["video-container.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,MAAM,cAAc,GAAG;IAC5B,GAAG,EAAE,KAAK;IACV,GAAG,EAAE,KAAK;IACV,GAAG,EAAE,KAAK;CACF,CAAC;AAIX,MAAM,UAAU,qBAAqB,CAAC,KAAa;IACjD,OAAO,MAAM,CAAC,MAAM,CAAC,cAAc,CAAC,CAAC,QAAQ,CAAC,KAAuB,CAAC,CAAC;AACzE,CAAC"}

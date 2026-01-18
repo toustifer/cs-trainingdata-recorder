@@ -1,0 +1,1 @@
+{"version":3,"file":"get-settings-file-path.js","sourceRoot":"","sources":["get-settings-file-path.ts"],"names":[],"mappings":"AAAA,OAAO,IAAI,MAAM,WAAW,CAAC;AAC7B,OAAO,EAAE,gBAAgB,EAAE,MAAM,0CAA0C,CAAC;AAE5E,MAAM,UAAU,mBAAmB;IACjC,MAAM,gBAAgB,GAAG,IAAI,CAAC,OAAO,CAAC,gBAAgB,EAAE,EAAE,eAAe,CAAC,CAAC;IAC3E,OAAO,gBAAgB,CAAC;AAC1B,CAAC"}

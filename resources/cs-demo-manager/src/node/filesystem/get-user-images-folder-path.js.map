@@ -1,0 +1,1 @@
+{"version":3,"file":"get-user-images-folder-path.js","sourceRoot":"","sources":["get-user-images-folder-path.ts"],"names":[],"mappings":"AAAA,OAAO,IAAI,MAAM,WAAW,CAAC;AAC7B,OAAO,EAAE,gBAAgB,EAAE,MAAM,0CAA0C,CAAC;AAE5E,MAAM,UAAU,uBAAuB;IACrC,OAAO,IAAI,CAAC,IAAI,CAAC,gBAAgB,EAAE,EAAE,QAAQ,CAAC,CAAC;AACjD,CAAC"}

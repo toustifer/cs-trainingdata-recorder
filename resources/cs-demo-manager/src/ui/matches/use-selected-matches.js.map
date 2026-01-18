@@ -1,0 +1,1 @@
+{"version":3,"file":"use-selected-matches.js","sourceRoot":"","sources":["use-selected-matches.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,eAAe,EAAE,MAAM,qBAAqB,CAAC;AAEtD,MAAM,UAAU,kBAAkB;IAChC,MAAM,KAAK,GAAG,eAAe,EAAE,CAAC;IAEhC,OAAO,KAAK,CAAC,QAAQ,CAAC,MAAM,CAAC,CAAC,KAAK,EAAE,EAAE,CAAC,KAAK,CAAC,iBAAiB,CAAC,QAAQ,CAAC,KAAK,CAAC,QAAQ,CAAC,CAAC,CAAC;AAC5F,CAAC"}

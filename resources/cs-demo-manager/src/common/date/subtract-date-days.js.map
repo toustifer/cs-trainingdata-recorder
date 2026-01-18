@@ -1,0 +1,1 @@
+{"version":3,"file":"subtract-date-days.js","sourceRoot":"","sources":["subtract-date-days.ts"],"names":[],"mappings":"AAAA,MAAM,UAAU,gBAAgB,CAAC,IAAU,EAAE,IAAY;IACvD,MAAM,OAAO,GAAG,IAAI,IAAI,EAAE,CAAC;IAC3B,OAAO,CAAC,OAAO,CAAC,IAAI,CAAC,OAAO,EAAE,GAAG,IAAI,CAAC,CAAC;IAEvC,OAAO,OAAO,CAAC;AACjB,CAAC"}

@@ -1,0 +1,32 @@
+import { db } from 'csdm/node/database/database';
+import { uniqueArray } from 'csdm/common/array/unique-array';
+export async function updatePlayersTags(steamIds, tagIds) {
+    const uniqueTagIds = uniqueArray(tagIds);
+    if (uniqueTagIds.length === 0) {
+        return;
+    }
+    const rows = [];
+    for (const steamId of steamIds) {
+        for (const tagId of uniqueTagIds) {
+            rows.push({
+                steam_id: steamId,
+                tag_id: tagId,
+            });
+        }
+    }
+    await db.transaction().execute(async (transaction) => {
+        await transaction
+            .deleteFrom('steam_account_tags')
+            .where('steam_id', 'in', steamIds)
+            .where('tag_id', 'not in', uniqueTagIds)
+            .execute();
+        await transaction
+            .insertInto('steam_account_tags')
+            .values(rows)
+            .onConflict((oc) => {
+            return oc.columns(['steam_id', 'tag_id']).doNothing();
+        })
+            .execute();
+    });
+}
+//# sourceMappingURL=update-players-tags.js.map

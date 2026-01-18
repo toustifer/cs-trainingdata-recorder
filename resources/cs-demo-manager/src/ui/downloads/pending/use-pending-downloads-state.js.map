@@ -1,0 +1,1 @@
+{"version":3,"file":"use-pending-downloads-state.js","sourceRoot":"","sources":["use-pending-downloads-state.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,iBAAiB,EAAE,MAAM,uCAAuC,CAAC;AAG1E,MAAM,UAAU,wBAAwB;IACtC,MAAM,cAAc,GAAG,iBAAiB,EAAE,CAAC;IAC3C,OAAO,cAAc,CAAC,OAAO,CAAC;AAChC,CAAC"}

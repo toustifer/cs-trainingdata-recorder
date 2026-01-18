@@ -1,0 +1,108 @@
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { useLingui } from '@lingui/react/macro';
+import { useChart } from 'csdm/ui/hooks/use-chart';
+import { CompetitiveRank } from 'csdm/common/types/counter-strike';
+import { usePlayer } from '../use-player';
+import { useChartColors } from 'csdm/ui/hooks/use-charts-colors';
+import { useGetRankName } from 'csdm/ui/hooks/use-get-rank-name';
+export function CompetitiveRankRepartitionChart() {
+    const { enemyCountPerRank } = usePlayer();
+    const getRankName = useGetRankName();
+    const colors = useChartColors();
+    const { t } = useLingui();
+    const rankColors = {
+        [CompetitiveRank.Unknown]: '#c7c7c7',
+        [CompetitiveRank.SilverI]: '#F472B6',
+        [CompetitiveRank.SilverII]: '#EC4899',
+        [CompetitiveRank.SilverIII]: '#DB2777',
+        [CompetitiveRank.SilverIV]: '#BE185D',
+        [CompetitiveRank.SilverElite]: '#9D174D',
+        [CompetitiveRank.SilverEliteMaster]: '#831843',
+        [CompetitiveRank.GoldNovaI]: '#7C3AED',
+        [CompetitiveRank.GoldNovaII]: '#6D28D9',
+        [CompetitiveRank.GoldNovaIII]: '#5B21B6',
+        [CompetitiveRank.GoldNovaMaster]: '#4C1D95',
+        [CompetitiveRank.MasterGuardianI]: '#4338CA',
+        [CompetitiveRank.MasterGuardianII]: '#3730A3',
+        [CompetitiveRank.MasterGuardianElite]: '#312E81',
+        [CompetitiveRank.DistinguishedMasterGuardian]: '#F59E0B',
+        [CompetitiveRank.LegendaryEagle]: '#D97706',
+        [CompetitiveRank.LegendaryEagleMaster]: '#B45309',
+        [CompetitiveRank.SupremeMasterFirstClass]: '#92400E',
+        [CompetitiveRank.GlobalElite]: '#78350F',
+    };
+    const enemyCountPerCompetitiveRank = new Map();
+    const data = [];
+    for (const [rank, enemyCount] of Object.entries(enemyCountPerRank)) {
+        if (enemyCount === 0) {
+            continue;
+        }
+        const rankNumber = Number(rank);
+        if (rankNumber > CompetitiveRank.GlobalElite) {
+            continue;
+        }
+        enemyCountPerCompetitiveRank.set(rankNumber, enemyCount);
+        data.push({
+            name: `rank-${rankNumber}`,
+            value: enemyCount,
+            rankNumber,
+            itemStyle: { color: rankColors[rankNumber] },
+        });
+    }
+    data.sort((enemyCountA, enemyCountB) => enemyCountA.value - enemyCountB.value);
+    const option = {
+        tooltip: {
+            trigger: 'item',
+            formatter: (parameters) => {
+                const { data, percent } = parameters;
+                const { rankNumber, value } = data;
+                return renderToString(React.createElement("div", { className: "flex flex-col gap-y-4" },
+                    React.createElement("img", { src: window.csdm.getRankImageSrc(rankNumber), className: "w-[64px] self-center" }),
+                    React.createElement("p", null, getRankName(rankNumber)),
+                    React.createElement("div", { className: "flex gap-x-4" },
+                        React.createElement("p", { className: "text-body-strong" }, value),
+                        React.createElement("p", null,
+                            "(",
+                            percent,
+                            "%)"))));
+            },
+            backgroundColor: colors.tooltipBackgroundColor,
+            borderColor: colors.tooltipBorderColor,
+            textStyle: {
+                color: colors.tooltipTextColor,
+            },
+        },
+        title: {
+            text: t({
+                message: 'Players competitive rank repartition',
+                context: 'Chart title',
+            }),
+            left: 'center',
+            textStyle: {
+                color: colors.titleTextColor,
+                fontWeight: 500,
+            },
+        },
+        series: [
+            {
+                type: 'pie',
+                label: {
+                    color: colors.labelTextColor,
+                    fontSize: 12,
+                    formatter: (parameters) => {
+                        const { data } = parameters;
+                        const name = getRankName(Number(data.rankNumber));
+                        return `${name}: ${parameters.percent}%`;
+                    },
+                },
+                data,
+            },
+        ],
+    };
+    const { ref } = useChart({
+        option,
+    });
+    return React.createElement("div", { className: "min-h-[400px] w-full", ref: ref });
+}
+//# sourceMappingURL=competitive-rank-repartition-chart.js.map

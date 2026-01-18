@@ -1,0 +1,1 @@
+{"version":3,"file":"invalid-args.js","sourceRoot":"","sources":["invalid-args.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,6BAA6B,CAAC;AACxD,OAAO,EAAE,SAAS,EAAE,MAAM,wBAAwB,CAAC;AAEnD,MAAM,OAAO,WAAY,SAAQ,SAAS;IACxC;QACE,KAAK,CAAC,SAAS,CAAC,iBAAiB,CAAC,CAAC;QACnC,IAAI,CAAC,OAAO,GAAG,mBAAmB,CAAC;IACrC,CAAC;CACF"}

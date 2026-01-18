@@ -1,0 +1,6 @@
+import { getInstalledVirtualDubVersion } from './get-installed-virtual-dub-version';
+export async function isVirtualDubInstalled() {
+    const installedVirtualDubVersion = await getInstalledVirtualDubVersion();
+    return installedVirtualDubVersion !== undefined;
+}
+//# sourceMappingURL=is-virtual-dub-installed.js.map

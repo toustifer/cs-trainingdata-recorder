@@ -1,0 +1,1 @@
+{"version":3,"file":"use-is-demo-in-database.js","sourceRoot":"","sources":["use-is-demo-in-database.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,iBAAiB,EAAE,MAAM,mCAAmC,CAAC;AAEtE,MAAM,UAAU,mBAAmB;IACjC,MAAM,cAAc,GAAG,iBAAiB,EAAE,CAAC;IAE3C,OAAO,CAAC,YAAoB,EAAE,EAAE;QAC9B,OAAO,cAAc,CAAC,QAAQ,CAAC,YAAY,CAAC,CAAC;IAC/C,CAAC,CAAC;AACJ,CAAC"}

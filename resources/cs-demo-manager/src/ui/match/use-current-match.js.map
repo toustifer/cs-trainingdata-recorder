@@ -1,0 +1,1 @@
+{"version":3,"file":"use-current-match.js","sourceRoot":"","sources":["use-current-match.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,qBAAqB,EAAE,MAAM,4BAA4B,CAAC;AAEnE,MAAM,UAAU,eAAe;IAC7B,MAAM,KAAK,GAAG,qBAAqB,EAAE,CAAC;IAEtC,IAAI,KAAK,KAAK,IAAI,EAAE,CAAC;QACnB,MAAM,IAAI,KAAK,CAAC,2BAA2B,CAAC,CAAC;IAC/C,CAAC;IAED,OAAO,KAAK,CAAC;AACf,CAAC"}

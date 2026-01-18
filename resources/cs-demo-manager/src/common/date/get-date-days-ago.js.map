@@ -1,0 +1,1 @@
+{"version":3,"file":"get-date-days-ago.js","sourceRoot":"","sources":["get-date-days-ago.ts"],"names":[],"mappings":"AAAA,MAAM,UAAU,cAAc,CAAC,IAAY;IACzC,MAAM,IAAI,GAAG,IAAI,IAAI,EAAE,CAAC;IACxB,IAAI,CAAC,OAAO,CAAC,IAAI,CAAC,OAAO,EAAE,GAAG,IAAI,CAAC,CAAC;IAEpC,OAAO,IAAI,CAAC;AACd,CAAC"}

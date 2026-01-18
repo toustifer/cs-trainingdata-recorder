@@ -1,0 +1,1 @@
+{"version":3,"file":"fetch-migrations-handler.js","sourceRoot":"","sources":["fetch-migrations-handler.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,eAAe,EAAE,MAAM,gDAAgD,CAAC;AAEjF,MAAM,CAAC,KAAK,UAAU,sBAAsB;IAC1C,MAAM,UAAU,GAAG,MAAM,eAAe,CAAC,CAAC,CAAC,CAAC;IAE5C,OAAO,UAAU,CAAC;AACpB,CAAC"}
